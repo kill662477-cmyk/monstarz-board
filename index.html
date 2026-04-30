@@ -1780,6 +1780,91 @@ body.light-mode .inout-guide {
   color: #334155 !important;
 }
 
+
+
+/* ===== mobile header logo/title alignment fix ===== */
+.site-header .brand {
+  align-items: center !important;
+}
+.site-header .brand-copy {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-width: 0;
+}
+.site-header .brand-copy h1 {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1 !important;
+}
+@media (max-width: 768px) {
+  .site-header .hero-top {
+    padding: 0 42px 8px !important;
+    align-items: center !important;
+  }
+  .site-header .brand {
+    align-items: center !important;
+    gap: 8px !important;
+  }
+  .site-header .brand-logo {
+    width: 38px !important;
+    height: 38px !important;
+    align-self: center !important;
+    flex: 0 0 38px !important;
+  }
+  .site-header .brand-copy h1 {
+    height: 38px;
+    margin: 0 !important;
+    line-height: 38px !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    white-space: nowrap;
+    transform: translateY(1px);
+  }
+  .site-header .brand-copy p {
+    margin-top: -4px !important;
+    line-height: 1.1 !important;
+  }
+}
+@media (max-width: 480px) {
+  .site-header .hero-top {
+    padding: 0 32px 7px !important;
+  }
+  .site-header .brand {
+    gap: 6px !important;
+  }
+  .site-header .brand-logo {
+    width: 34px !important;
+    height: 34px !important;
+    flex-basis: 34px !important;
+  }
+  .site-header .brand-copy h1 {
+    height: 34px;
+    line-height: 34px !important;
+    font-size: 15px !important;
+    transform: translateY(1px);
+  }
+  .site-header .brand-copy h1::before,
+  .site-header .brand-copy h1::after {
+    line-height: 1;
+    margin: 0 3px !important;
+  }
+  .site-header .brand-copy p {
+    margin-top: -3px !important;
+  }
+}
+
+
+/* ===== remove title yellow stars ===== */
+.site-header .brand-copy h1::before,
+.site-header .brand-copy h1::after {
+  content: none !important;
+  display: none !important;
+}
+
 </style>
 </head>
 <body>
