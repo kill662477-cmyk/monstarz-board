@@ -1320,6 +1320,34 @@ body {
   font-size: 8px;
   margin-bottom: 3px;
 }
+.youtube-source-name {
+  display: inline-flex;
+  align-items: center;
+  max-width: 70%;
+  min-height: 15px;
+  padding: 0 5px;
+  border-radius: 999px;
+  font-weight: 950;
+  letter-spacing: -0.03em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.youtube-source-name.kinkon {
+  color: #5fd0ff;
+  background: rgba(56, 189, 248, .15);
+  border: 1px solid rgba(56, 189, 248, .28);
+}
+.youtube-source-name.fan2 {
+  color: #9fc7ff;
+  background: rgba(96, 165, 250, .13);
+  border: 1px solid rgba(96, 165, 250, .24);
+}
+.youtube-source-name.kamrini {
+  color: #ffd166;
+  background: rgba(245, 158, 11, .15);
+  border: 1px solid rgba(245, 158, 11, .28);
+}
 .youtube-title {
   display: -webkit-box;
   -webkit-line-clamp: 2;
@@ -1413,6 +1441,7 @@ body {
   .youtube-body { padding: 3px; }
   .youtube-title { display: block; -webkit-line-clamp: unset; -webkit-box-orient: unset; overflow: visible; min-height: auto; font-size: 7px; line-height: 1.15; letter-spacing: -0.04em; word-break: break-all; }
   .youtube-meta { font-size: 6px; gap: 2px; margin-bottom: 2px; }
+  .youtube-source-name { min-height: 12px; padding: 0 3px; max-width: 66%; }
   .youtube-card .notice-meta { font-size: 5.5px; margin-top: 3px; }
   .youtube-player-card { border-radius: 12px; }
   .youtube-player-info { padding: 8px; }
@@ -2891,11 +2920,67 @@ body.light-mode .inout-filter-btn.active {
     return { views: "", age: text };
   }
 
+  function getYoutubeChannelName(item) {
+    const rawCandidates = [
+      item?.name,
+      item?.channelTitle,
+      item?.sourceName,
+      item?.author,
+      item?.channel
+    ].map(value => String(value || "").trim()).filter(Boolean);
+
+    const rawText = rawCandidates.join(" ");
+    const compactText = rawText
+      .replace(/[\s\u00a0\u200b\u200c\u200d·ㆍ\-_]/g, "")
+      .trim();
+
+    // 츠캄몬스타즈 팬튜브1 / 팬유튜브1 / 츠캄팬튜브1 등 전부 KINKON
+    if (
+      compactText.includes("KINKON") ||
+      /(?:팬튜브|팬유튜브|FanTube|FANTUBE)1/i.test(compactText)
+    ) {
+      return "KINKON";
+    }
+
+    // 츠캄몬스타즈 팬튜브2 / 팬유튜브2 / 츠캄팬튜브2 등 전부 츠캄팬튜브
+    if (/(?:팬튜브|팬유튜브|FanTube|FANTUBE)2/i.test(compactText)) {
+      return "츠캄팬튜브";
+    }
+
+    if (compactText.includes("캄린이")) return "캄린이";
+
+    return rawCandidates[0] || "유튜브";
+  }
+
+  function forceYoutubeLabelTextFix(root = document) {
+    root.querySelectorAll(".youtube-source-name, .notice-meta").forEach((el) => {
+      let text = el.textContent || "";
+      text = text
+        .replace(/츠캄몬스타즈\s*팬\s*유?튜브\s*1/g, "KINKON")
+        .replace(/츠캄\s*팬\s*유?튜브\s*1/g, "KINKON")
+        .replace(/츠캄팬\s*유?튜브\s*1/g, "KINKON")
+        .replace(/팬\s*유?튜브\s*1/g, "KINKON")
+        .replace(/츠캄몬스타즈\s*팬\s*유?튜브\s*2/g, "츠캄팬튜브")
+        .replace(/츠캄\s*팬\s*유?튜브\s*2/g, "츠캄팬튜브")
+        .replace(/츠캄팬\s*유?튜브\s*2/g, "츠캄팬튜브")
+        .replace(/팬\s*유?튜브\s*2/g, "츠캄팬튜브");
+      el.textContent = text;
+    });
+  }
+
+  function getYoutubeChannelClass(item) {
+    const displayName = getYoutubeChannelName(item);
+    if (displayName === "KINKON") return "kinkon";
+    if (displayName === "츠캄팬튜브") return "fan2";
+    if (displayName === "캄린이") return "kamrini";
+    return "default";
+  }
+
   function getYoutubeMetaText(item) {
     const raw = item.viewCountText || item.publishedText || "";
     const parsed = splitYoutubeMetaText(raw);
     const fallbackDate = formatYoutubeDate(item.publishedAt || item.published || item.updatedAt || "");
-    const bits = [item.name || item.channelTitle || item.sourceName || "유튜브"];
+    const bits = [getYoutubeChannelName(item)];
     if (parsed.views) bits.push(parsed.views);
     if (parsed.age) bits.push(parsed.age);
     else if (fallbackDate) bits.push(fallbackDate);
@@ -2958,7 +3043,7 @@ body.light-mode .inout-filter-btn.active {
           ${item.thumbnail ? `<img class="youtube-thumb" src="${safeLink(item.thumbnail)}" alt="${escapeHtml(item.title || "유튜브 영상")}">` : `<div class="youtube-thumb"></div>`}
           <div class="youtube-body">
             <div class="youtube-meta">
-              <span>${escapeHtml(item.name || item.channelTitle || item.sourceName || "유튜브")}</span>
+              <span class="youtube-source-name ${getYoutubeChannelClass(item)}">${escapeHtml(getYoutubeChannelName(item))}</span>
               <span>${escapeHtml(splitYoutubeMetaText(item.viewCountText || item.publishedText || "").age || formatYoutubeDate(item.publishedAt || item.published || item.updatedAt || item.year))}</span>
             </div>
             <span class="youtube-title">${escapeHtml(item.title || "")}</span>
@@ -2967,6 +3052,8 @@ body.light-mode .inout-filter-btn.active {
         </button>
       </article>
     `).join("");
+
+    forceYoutubeLabelTextFix(youtubeList);
 
     youtubeList.querySelectorAll("[data-youtube-index]").forEach((button) => {
       button.addEventListener("click", () => {
@@ -2985,7 +3072,8 @@ body.light-mode .inout-filter-btn.active {
       ...item,
       _order: order,
       sourceName,
-      name: item.name || item.channelTitle || sourceName,
+      name: getYoutubeChannelName({ ...item, sourceName }),
+      channelTitle: getYoutubeChannelName({ ...item, sourceName }),
       url,
       link: item.link || url,
       videoId,
