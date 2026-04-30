@@ -1605,11 +1605,189 @@ body {
 .inout-card{position:relative;grid-template-columns:88px minmax(0,1fr)!important;min-height:54px;overflow:hidden;border-radius:15px!important;background:linear-gradient(135deg,rgba(21,43,72,.94),rgba(8,21,39,.96))!important;border:1px solid rgba(255,255,255,.09)!important;box-shadow:0 10px 22px rgba(0,0,0,.24),inset 0 0 0 1px rgba(255,255,255,.025)!important;transition:.16s ease}.inout-card:hover{transform:translateY(-1px);border-color:rgba(96,165,250,.35)!important}.inout-card:before{content:"";position:absolute;left:0;top:0;bottom:0;width:4px;background:linear-gradient(180deg,#60a5fa,#2563eb);opacity:.9}.inout-card.has-out:before{background:linear-gradient(180deg,#fb7185,#ef4444)}.inout-card.mixed:before{background:linear-gradient(180deg,#60a5fa,#ef4444)}.inout-date{background:radial-gradient(circle at 50% 0%,rgba(255,255,255,.16),transparent 45%),rgba(37,99,235,.16)!important;border:1px solid rgba(96,165,250,.26)!important;color:#eaf3ff!important;font-weight:950!important;text-shadow:0 1px 10px rgba(96,165,250,.28)}.inout-date:before{content:"";width:7px;height:7px;margin-right:6px;border-radius:50%;background:#3b82f6;box-shadow:0 0 12px rgba(59,130,246,.8)}.inout-card.has-out .inout-date:before{background:#ef4444;box-shadow:0 0 12px rgba(239,68,68,.78)}.inout-card.mixed .inout-date:before{background:linear-gradient(135deg,#3b82f6,#ef4444)}.inout-person{background:linear-gradient(135deg,rgba(255,255,255,.08),rgba(255,255,255,.035))!important;border-color:rgba(255,255,255,.10)!important;color:#f8fbff!important;font-weight:950!important;box-shadow:inset 0 0 10px rgba(255,255,255,.025)}.inout-race{display:inline-flex;align-items:center;justify-content:center;min-width:18px;height:18px;border-radius:6px;color:#cfe4ff!important;background:rgba(96,165,250,.12);border:1px solid rgba(96,165,250,.18)}.inout-status.in{background:linear-gradient(135deg,rgba(59,130,246,.46),rgba(37,99,235,.26))!important;border-color:rgba(96,165,250,.58)!important;box-shadow:0 0 12px rgba(37,99,235,.16)}.inout-status.out{background:linear-gradient(135deg,rgba(239,68,68,.50),rgba(185,28,28,.28))!important;border-color:rgba(248,113,113,.60)!important;box-shadow:0 0 12px rgba(239,68,68,.16)}
 @media(max-width:860px){.inout-overview{gap:5px}.inout-stat-card{min-height:46px;padding:7px 8px;border-radius:11px}.inout-stat-label{font-size:7px}.inout-stat-value{font-size:12px}.inout-stat-note{font-size:6px}.inout-wrap{grid-template-columns:1fr!important;padding:8px;border-radius:14px}.inout-card{grid-template-columns:72px minmax(0,1fr)!important;min-height:45px}.inout-section-head:after{font-size:28px}}@media(max-width:480px){.inout-overview{gap:4px}.inout-stat-card{min-height:39px;padding:5px 6px;border-radius:9px}.inout-stat-label{font-size:6px}.inout-stat-value{font-size:10px;margin-top:2px}.inout-stat-note{display:none}.inout-guide{border-radius:10px}.inout-card{grid-template-columns:58px minmax(0,1fr)!important}.inout-race{min-width:13px;height:13px}}
 
+
+/* ===== 2026 header/nav/theme refresh ===== */
+:root {
+  --bg: #0b2a55;
+  --panel: #102f5a;
+  --text: #f7fbff;
+  --muted: #b9d3f4;
+  --line: rgba(131, 184, 255, 0.22);
+  --shadow: 0 12px 28px rgba(0, 31, 84, 0.28);
+  --accent: #1d74ff;
+  --accent-soft: rgba(29, 116, 255, 0.24);
+}
+body { background: radial-gradient(circle at 50% 0%, rgba(255, 214, 80, 0.16), transparent 20%), radial-gradient(circle at 12% 8%, rgba(45, 139, 255, 0.38), transparent 28%), radial-gradient(circle at 88% 18%, rgba(255, 255, 255, 0.16), transparent 24%), linear-gradient(180deg, #0a2852 0%, #103d78 38%, #092345 100%) !important; }
+.site-header { position: relative; padding: 14px 12px 12px !important; background: linear-gradient(90deg, rgba(255,255,255,.055) 1px, transparent 1px), radial-gradient(circle at 50% -12%, rgba(255, 214, 80, .18), transparent 32%), linear-gradient(135deg, rgba(9,40,82,.97), rgba(12,69,130,.94)) !important; border-color: rgba(144, 198, 255, .30) !important; border-radius: 18px !important; }
+.site-header .hero-top { justify-content: center !important; text-align: center; padding: 2px 48px 10px; }
+.site-header .brand { justify-content: center; gap: 12px; }
+.site-header .brand-logo { width: 56px; height: 56px; border-radius: 14px; background: rgba(255,255,255,.12); border-color: rgba(255, 220, 78, .42); box-shadow: 0 0 0 1px rgba(255,255,255,.08), 0 0 24px rgba(29,116,255,.22); }
+.site-header .brand-copy h1 { margin: 0; font-size: 28px !important; font-weight: 950; letter-spacing: -0.05em; color: #ffffff; text-shadow: 0 2px 0 rgba(0,0,0,.20), 0 0 18px rgba(255,216,77,.18); }
+.site-header .brand-copy h1::before, .site-header .brand-copy h1::after { content: "★"; color: #ffd43b; font-size: .72em; margin: 0 8px; text-shadow: 0 0 14px rgba(255,212,59,.50); }
+.site-header .brand-copy p { margin-top: 3px; color: #dbeafe; font-size: 10px; font-weight: 900; letter-spacing: .01em; }
+.site-header .tab-row { display: grid !important; grid-template-columns: repeat(4, minmax(0, 1fr)); width: 100%; gap: 0 !important; margin: 0 0 10px !important; overflow: hidden; border-radius: 12px; border: 1px solid rgba(129, 190, 255, .28); background: linear-gradient(180deg, rgba(6,27,56,.78), rgba(5,22,46,.92)); box-shadow: inset 0 0 0 1px rgba(255,255,255,.035); }
+.site-header .tab-btn { min-height: 38px !important; border: 0 !important; border-right: 1px solid rgba(129,190,255,.22) !important; border-radius: 0 !important; background: transparent !important; color: #eaf3ff !important; font-size: 13px !important; font-weight: 950 !important; letter-spacing: -0.03em; }
+.site-header .tab-btn:last-child { border-right: 0 !important; }
+.site-header .tab-btn.active { background: linear-gradient(180deg, #2786ff, #0f5bd3) !important; color: #fff !important; box-shadow: inset 0 0 0 1px rgba(255,255,255,.16), 0 0 24px rgba(39,134,255,.32) !important; }
+.theme-toggle { position: absolute; top: 13px; right: 14px; z-index: 5; width: 36px; height: 36px; display: inline-flex; align-items: center; justify-content: center; padding: 3px; border-radius: 999px; border: 1px solid rgba(255, 214, 80, .38); background: rgba(255,255,255,.12); box-shadow: 0 0 16px rgba(29,116,255,.20); cursor: pointer; }
+.theme-toggle img { width: 100%; height: 100%; object-fit: cover; border-radius: 999px; }
+.summary-grid.header-summary-hidden { display: none !important; }
+.summary-card, .search-box, .filter-box, .member-card, .notice-card, .youtube-card, .youtube-player-card, .inout-card { border-color: rgba(137, 192, 255, .22) !important; background: linear-gradient(180deg, rgba(20, 58, 103, .94), rgba(9, 35, 70, .96)) !important; }
+body.light-mode { --bg: #eef6ff; --panel: #ffffff; --text: #13233a; --muted: #5f7390; --line: rgba(36, 99, 168, 0.16); --shadow: 0 10px 24px rgba(52, 108, 176, 0.16); --accent: #1d74ff; --accent-soft: rgba(29, 116, 255, 0.13); color: var(--text); background: radial-gradient(circle at 18% 4%, rgba(255, 216, 77, .34), transparent 22%), radial-gradient(circle at 82% 10%, rgba(29, 116, 255, .22), transparent 26%), linear-gradient(180deg, #f9fcff 0%, #eaf4ff 46%, #dfeeff 100%) !important; }
+body.light-mode .site-header { background: radial-gradient(circle at 50% -10%, rgba(255, 216, 77, .34), transparent 34%), linear-gradient(135deg, rgba(255,255,255,.98), rgba(219,238,255,.96)) !important; border-color: rgba(45, 122, 215, .22) !important; }
+body.light-mode .site-header .brand-copy h1 { color: #123766; text-shadow: none; }
+body.light-mode .site-header .brand-copy p { color: #426487; }
+body.light-mode .site-header .tab-row { background: rgba(255,255,255,.78); border-color: rgba(45,122,215,.22); }
+body.light-mode .site-header .tab-btn { color: #24476e !important; border-color: rgba(45,122,215,.18) !important; }
+body.light-mode .site-header .tab-btn.active { color: #fff !important; }
+body.light-mode .summary-card, body.light-mode .search-box, body.light-mode .filter-box, body.light-mode .member-card, body.light-mode .notice-card, body.light-mode .youtube-card, body.light-mode .youtube-player-card, body.light-mode .inout-card, body.light-mode .empty { background: linear-gradient(180deg, rgba(255,255,255,.98), rgba(235,245,255,.96)) !important; color: #13233a !important; border-color: rgba(36, 99, 168, .16) !important; }
+body.light-mode .name-row .name, body.light-mode .summary-card .value, body.light-mode .youtube-title, body.light-mode .youtube-player-title, body.light-mode .notice-summary-link, body.light-mode .inout-person { color: #13233a !important; }
+body.light-mode .meta-item, body.light-mode .notice-time, body.light-mode .notice-meta, body.light-mode .youtube-meta, body.light-mode .summary-card .label, body.light-mode .summary-card .sub, body.light-mode .meta-item .label { color: #5f7390 !important; }
+body.light-mode .filter-box select, body.light-mode .search-box input { background: transparent !important; color: #13233a !important; }
+body.light-mode .btn-link, body.light-mode .race-badge { color: #24476e; background: rgba(29,116,255,.08); border-color: rgba(29,116,255,.12); }
+body.light-mode .inout-wrap { background: rgba(255,255,255,.66) !important; }
+@media (max-width: 768px) { .site-header .hero-top { padding: 2px 42px 8px; } .site-header .brand-logo { width: 42px; height: 42px; border-radius: 11px; } .site-header .brand-copy h1 { font-size: 19px !important; } .site-header .brand-copy p { font-size: 8px; } .site-header .tab-btn { min-height: 31px !important; font-size: 10px !important; } .theme-toggle { top: 10px; right: 10px; width: 30px; height: 30px; } }
+@media (max-width: 480px) { .site-header { padding: 10px 8px 9px !important; } .site-header .hero-top { padding: 0 34px 7px; } .site-header .brand { gap: 7px; } .site-header .brand-logo { width: 34px; height: 34px; border-radius: 9px; } .site-header .brand-copy h1 { font-size: 16px !important; white-space: nowrap; } .site-header .brand-copy h1::before, .site-header .brand-copy h1::after { margin: 0 3px; } .site-header .brand-copy p { font-size: 7px; } .site-header .tab-btn { min-height: 28px !important; font-size: 9px !important; } .theme-toggle { width: 27px; height: 27px; } }
+
+
+/* ===== light mode readability hotfix: notice + IN&OUT ===== */
+body.light-mode #noticeScreen .section-head h2,
+body.light-mode #inoutScreen .section-head h2 {
+  color: #0f172a !important;
+}
+
+body.light-mode #noticeScreen .count,
+body.light-mode #inoutScreen .count {
+  color: #334155 !important;
+}
+
+body.light-mode .notice-card {
+  background: linear-gradient(180deg, #ffffff, #eef6ff) !important;
+  border-color: rgba(37, 99, 235, .18) !important;
+  box-shadow: 0 8px 20px rgba(37, 99, 235, .12) !important;
+}
+
+body.light-mode .notice-station {
+  background: linear-gradient(180deg, #dbeafe, #bfdbfe) !important;
+  border-color: rgba(37, 99, 235, .26) !important;
+  color: #1e3a8a !important;
+  text-shadow: none !important;
+}
+
+body.light-mode .notice-summary-link {
+  color: #0f172a !important;
+  font-weight: 800 !important;
+}
+
+body.light-mode .notice-summary-link:hover {
+  color: #1d4ed8 !important;
+}
+
+body.light-mode .notice-time,
+body.light-mode .notice-meta {
+  color: #475569 !important;
+}
+
+body.light-mode .inout-section-head {
+  background: radial-gradient(circle at 14% 25%, rgba(37,99,235,.16), transparent 34%),
+              radial-gradient(circle at 88% 18%, rgba(255,214,59,.20), transparent 30%),
+              linear-gradient(135deg, #ffffff, #dbeafe) !important;
+  border-color: rgba(37, 99, 235, .20) !important;
+  box-shadow: 0 10px 24px rgba(37, 99, 235, .13), inset 0 0 0 1px rgba(255,255,255,.70) !important;
+}
+
+body.light-mode .inout-section-head:after {
+  color: rgba(37, 99, 235, .08) !important;
+}
+
+body.light-mode .inout-title-sub {
+  color: #1e40af !important;
+  text-shadow: none !important;
+}
+
+body.light-mode .inout-overview .inout-stat-card {
+  background: linear-gradient(180deg, #ffffff, #eef6ff) !important;
+  border-color: rgba(37, 99, 235, .16) !important;
+  box-shadow: 0 8px 18px rgba(37, 99, 235, .10) !important;
+}
+
+body.light-mode .inout-stat-label {
+  color: #475569 !important;
+}
+
+body.light-mode .inout-stat-value {
+  color: #0f172a !important;
+  text-shadow: none !important;
+}
+
+body.light-mode .inout-stat-note {
+  color: #64748b !important;
+}
+
+body.light-mode .inout-wrap {
+  background: linear-gradient(rgba(37,99,235,.055) 1px, transparent 1px),
+              linear-gradient(90deg, rgba(37,99,235,.045) 1px, transparent 1px),
+              radial-gradient(circle at 20% 10%, rgba(37,99,235,.12), transparent 28%),
+              rgba(255,255,255,.82) !important;
+  border-color: rgba(37, 99, 235, .18) !important;
+  box-shadow: inset 0 0 28px rgba(37,99,235,.06), 0 10px 24px rgba(37,99,235,.12) !important;
+}
+
+body.light-mode .inout-card {
+  background: linear-gradient(180deg, #ffffff, #edf6ff) !important;
+  border-color: rgba(37, 99, 235, .18) !important;
+  box-shadow: 0 8px 18px rgba(37,99,235,.11), inset 0 0 0 1px rgba(255,255,255,.80) !important;
+}
+
+body.light-mode .inout-date {
+  background: linear-gradient(180deg, #dbeafe, #bfdbfe) !important;
+  border-color: rgba(37, 99, 235, .28) !important;
+  color: #1e3a8a !important;
+  text-shadow: none !important;
+}
+
+body.light-mode .inout-person {
+  background: transparent !important;
+  border-color: transparent !important;
+  color: #020617 !important;
+  text-shadow: none !important;
+  box-shadow: none !important;
+}
+
+body.light-mode .inout-race {
+  background: #e0f2fe !important;
+  border-color: #bae6fd !important;
+  color: #0369a1 !important;
+}
+
+body.light-mode .inout-status.in {
+  background: linear-gradient(180deg, #60a5fa, #2563eb) !important;
+  border-color: rgba(37, 99, 235, .45) !important;
+  color: #ffffff !important;
+  text-shadow: 0 1px 4px rgba(0,0,0,.22) !important;
+}
+
+body.light-mode .inout-status.out {
+  background: linear-gradient(180deg, #fb7185, #ef4444) !important;
+  border-color: rgba(239, 68, 68, .48) !important;
+  color: #ffffff !important;
+  text-shadow: 0 1px 4px rgba(0,0,0,.22) !important;
+}
+
+body.light-mode .inout-guide {
+  background: rgba(255,255,255,.88) !important;
+  border-color: rgba(37,99,235,.16) !important;
+  color: #334155 !important;
+}
+
 </style>
 </head>
 <body>
   <div class="wrap">
-    <header class="hero">
+    <header class="hero site-header">
+      <button id="themeToggle" class="theme-toggle" type="button" aria-label="테마 변경">
+        <img id="themeIcon" alt="테마" />
+      </button>
       <div class="hero-top">
         <div class="brand">
           <div class="brand-logo">
@@ -1618,15 +1796,15 @@ body {
           <div class="brand-copy">
             <h1 id="teamName"></h1>
             <p id="teamDesc"></p>
-            <div class="tab-row">
-              <button id="tabMain" class="tab-btn active" type="button">현황판</button>
-              <button id="tabNotice" class="tab-btn" type="button">공지</button>
-              <button id="tabInout" class="tab-btn" type="button">IN&OUT</button>
-              <button id="tabYoutube" class="tab-btn" type="button">유튜브</button>
-            </div>
           </div>
         </div>
       </div>
+      <nav class="tab-row" aria-label="상단 메뉴">
+        <button id="tabMain" class="tab-btn active" type="button">현황판</button>
+        <button id="tabNotice" class="tab-btn" type="button">공지</button>
+        <button id="tabInout" class="tab-btn" type="button">IN&OUT</button>
+        <button id="tabYoutube" class="tab-btn" type="button">유튜브</button>
+      </nav>
       <div class="summary-grid" id="summaryGrid"></div>
     </header>
 
@@ -1872,6 +2050,8 @@ body {
   const noticeCount = document.getElementById("noticeCount");
   const tabYoutube = document.getElementById("tabYoutube");
   const tabInout = document.getElementById("tabInout");
+  const themeToggle = document.getElementById("themeToggle");
+  const themeIcon = document.getElementById("themeIcon");
   const youtubeScreen = document.getElementById("youtubeScreen");
   const youtubeList = document.getElementById("youtubeList");
   const youtubeCount = document.getElementById("youtubeCount");
@@ -1897,6 +2077,29 @@ body {
     teamDesc.textContent = TEAM.description || "";
     teamLogo.src = TEAM.logo;
     teamLogo.alt = TEAM.name + " 로고";
+  }
+
+  const THEME_ICONS = {
+    light: "https://tse2.mm.bing.net/th/id/OIP.6doMr8aSY4YqMdDotCVbHQHaHa?rs=1&pid=ImgDetMain&o=7&rm=3",
+    dark: "https://png.pngtree.com/png-clipart/20210310/original/pngtree-crescent-rabbit-png-image_5943182.jpg"
+  };
+
+  function applyTheme(mode) {
+    const isLight = mode === "light";
+    document.body.classList.toggle("light-mode", isLight);
+    if (themeIcon) {
+      themeIcon.src = isLight ? THEME_ICONS.dark : THEME_ICONS.light;
+      themeIcon.alt = isLight ? "다크모드로 변경" : "라이트모드로 변경";
+    }
+    if (themeToggle) {
+      themeToggle.title = isLight ? "다크모드로 변경" : "라이트모드로 변경";
+    }
+    localStorage.setItem("monstarz-theme", isLight ? "light" : "dark");
+  }
+
+  function initTheme() {
+    const savedTheme = localStorage.getItem("monstarz-theme") || "dark";
+    applyTheme(savedTheme === "light" ? "light" : "dark");
   }
 
   function formatCheckedAt(value) {
@@ -2472,6 +2675,10 @@ body {
     }).join("");
   }
 
+  function updateSummaryVisibility(isMain) {
+    summaryGrid.classList.toggle("header-summary-hidden", !isMain);
+  }
+
   function setActiveTab(activeTab) {
     [tabMain, tabNotice, tabInout, tabYoutube].forEach((tab) => tab.classList.remove("active"));
     activeTab.classList.add("active");
@@ -2483,12 +2690,14 @@ body {
 
   function showMainScreen() {
     setActiveTab(tabMain);
+    updateSummaryVisibility(true);
     hideAllScreens();
     mainScreen.classList.remove("hidden");
   }
 
   function showNoticeScreen() {
     setActiveTab(tabNotice);
+    updateSummaryVisibility(false);
     hideAllScreens();
     noticeScreen.classList.remove("hidden");
     renderNotices();
@@ -2496,6 +2705,7 @@ body {
 
   function showYoutubeScreen() {
     setActiveTab(tabYoutube);
+    updateSummaryVisibility(false);
     hideAllScreens();
     youtubeScreen.classList.remove("hidden");
     renderYoutube();
@@ -2503,6 +2713,7 @@ body {
 
   function showInoutScreen() {
     setActiveTab(tabInout);
+    updateSummaryVisibility(false);
     hideAllScreens();
     inoutScreen.classList.remove("hidden");
     renderInout();
@@ -2564,6 +2775,8 @@ body {
   }
 
   initHeader();
+  initTheme();
+  updateSummaryVisibility(true);
   render();
   renderNotices();
   renderYoutube();
@@ -2583,6 +2796,9 @@ body {
   tabYoutube.addEventListener("click", showYoutubeScreen);
   tabInout.addEventListener("click", showInoutScreen);
   youtubeAutoplayToggle.addEventListener("click", toggleYoutubeAutoplay);
+  themeToggle.addEventListener("click", () => {
+    applyTheme(document.body.classList.contains("light-mode") ? "dark" : "light");
+  });
 </script>
 </body>
 </html>
