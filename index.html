@@ -78,101 +78,6 @@ body{transition:background .25s ease,color .25s ease}
   }
 }
 
-
-/* ===== admin password gate ===== */
-.passBox{
-  max-width:420px;
-  margin:0 auto;
-  border:1px solid var(--line);
-  border-radius:22px;
-  background:linear-gradient(180deg,#071522,#04101d);
-  box-shadow:var(--shadow);
-  padding:16px;
-}
-.passBox h2{
-  margin:0 0 8px;
-  font-size:21px;
-  letter-spacing:-.04em;
-}
-.passBox p{
-  margin:0 0 14px;
-  color:var(--muted);
-  font-size:13px;
-  line-height:1.5;
-}
-.passGrid{
-  display:grid;
-  gap:10px;
-}
-.passGrid input{
-  width:100%;
-  height:46px;
-  border:1px solid var(--line);
-  border-radius:13px;
-  background:#061120;
-  color:#fff;
-  padding:0 13px;
-  outline:0;
-}
-.passActions{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:8px;
-  margin-top:12px;
-}
-.passActions button{
-  height:42px;
-  border:1px solid var(--line);
-  border-radius:12px;
-  background:#0b2440;
-  color:#fff;
-  font-weight:950;
-  cursor:pointer;
-}
-.passActions .danger{
-  background:rgba(255,52,52,.18);
-}
-.passError{
-  display:none;
-  margin-top:10px;
-  color:#ff7887;
-  font-size:12px;
-  font-weight:900;
-}
-.passError.show{display:block}
-
-
-/* ===== mobile modal viewport fix ===== */
-.modal{
-  justify-content:center;
-  align-items:center;
-}
-.modal.show{
-  display:flex !important;
-}
-.modal .detail,
-.modal .adminBox,
-.modal .passBox{
-  width:100%;
-}
-@media(max-width:520px){
-  .modal{
-    padding:12px;
-    align-items:center;
-    overflow:hidden;
-  }
-  .detail,
-  .adminBox,
-  .passBox{
-    max-height:calc(100dvh - 24px);
-    overflow:auto;
-    -webkit-overflow-scrolling:touch;
-  }
-}
-body.modal-open{
-  overflow:hidden;
-}
-
 </style>
 </head>
 <body>
@@ -183,35 +88,14 @@ body.modal-open{
     <div class="stats"><div class="stat"><small>전체 인원</small><b id="totalCnt">0</b><em>감독·코치·학생 포함</em></div><div class="stat"><small>방송중</small><b id="liveCnt">0</b><em>현재 LIVE</em></div><div class="stat"><small>학생</small><b id="studentCnt">0</b><em>티어 등록 학생</em></div><div class="stat stat-time"><small>방송 체크</small><b style="font-size:14px" id="checkTime">--</b><em>숲 ON 갱신</em></div></div>
     <div class="tools"><div class="search"><input id="q" placeholder="이름, 종족, 역할 검색"></div><select class="select" id="roleFilter"><option value="all">전체</option><option value="leader">감독</option><option value="coach">코치</option><option value="player">학생</option><option value="live">방송중</option></select><button class="filterBtn" id="refreshLive">↻</button></div>
   </div>
-  <section class="panel active" id="board"><div class="section"><div class="sectionHead"><h2>감독</h2><span id="directorCnt">0명</span></div><div class="directors" id="directors"></div></div><div class="section"><div class="sectionHead"><h2>코치</h2><button class="collapse" data-fold="coaches">접기⌃</button></div><div class="miniGrid" id="coaches"></div></div><div class="section"><div class="sectionHead"><h2>학생</h2><button class="collapse" data-fold="students">접기⌃</button></div><div class="miniGrid" id="students"></div></div><div class="actions"><button class="action" id="openAdmin">⚙ 코치/학생 관리</button></div><div class="linkSection"><h3>🔗 관련 사이트</h3><div class="linkGrid"><a class="linkCard" href="https://calm-hoxy.vercel.app/" target="_blank" rel="noopener"><b>Calm-Hoxy</b><span>펀딩 페이지</span></a><a class="linkCard" href="https://eloboard.com/" target="_blank" rel="noopener"><b>ELO보드</b><span>전적 / ELO</span></a><a class="linkCard" href="https://machugi.io/quiz/GJQTMpLt4usVzZyeGMJO" target="_blank" rel="noopener"><b>모의고사</b><span>퀴즈 컨텐츠</span></a><a class="linkCard" href="https://monstarz-schedule.vercel.app/" target="_blank" rel="noopener"><b>일정관리</b><span>일정 관리</span></a></div></div></section>
+  <section class="panel active" id="board"><div class="section"><div class="sectionHead"><h2>감독</h2><span id="directorCnt">0명</span></div><div class="directors" id="directors"></div></div><div class="section"><div class="sectionHead"><h2>코치</h2><button class="collapse" data-fold="coaches">접기⌃</button></div><div class="miniGrid" id="coaches"></div></div><div class="section"><div class="sectionHead"><h2>학생</h2><button class="collapse" data-fold="students">접기⌃</button></div><div class="miniGrid" id="students"></div></div><div class="actions"><button class="action" id="openAdmin">⚙ 코치/학생 관리</button></div><div class="linkSection"><h3>🔗 관련 사이트</h3><div class="linkGrid"><a class="linkCard" href="https://calm-hoxy.vercel.app/" target="_blank" rel="noopener"><b>Calm-Hoxy</b><span>펀딩 페이지</span></a><a class="linkCard" href="https://eloboard.com/" target="_blank" rel="noopener"><b>ELO보드</b><span>전적 / ELO</span></a><a class="linkCard" href="https://machugi.io/quiz/GJQTMpLt4usVzZyeGMJO" target="_blank" rel="noopener"><b>마추기</b><span>퀴즈 컨텐츠</span></a><a class="linkCard" href="https://monstarz-schedule.vercel.app/" target="_blank" rel="noopener"><b>일정관리</b><span>일정 관리</span></a></div></div></section>
   <section class="panel" id="notice"><div class="section"><div class="sectionHead"><h2>공지</h2><span id="noticeCnt">0개</span></div><div class="noticeList" id="noticeList"></div></div></section>
   <section class="panel" id="inout"><div class="section"><div class="sectionHead"><h2>츠캄몬스타즈 IN&OUT</h2><span id="ioCnt">0건</span></div><div class="tabs" style="margin:0"><button class="tab active" data-io="all">전체</button><button class="tab" data-io="IN">IN</button><button class="tab" data-io="OUT">OUT</button></div><div class="ioSearch"><input id="ioSearch" placeholder="IN&OUT 이름 검색"></div><div class="ioList" id="ioList"></div></div></section>
   <section class="panel" id="youtube"><div class="videoList" id="videoList"></div></section>
 </main></div>
 <nav class="bottomNav" id="bottomNav"><button class="navBtn active" data-tab="board"><b>⌂</b>현황판</button><button class="navBtn" data-tab="notice"><b>📣</b>공지</button><button class="navBtn" data-tab="inout"><b>⇅</b>IN&OUT</button><button class="navBtn" data-tab="youtube"><b>▶</b>유튜브</button></nav>
 <div class="modal" id="modal"><div class="detail"><div class="detailTop"><button class="iconBtn" id="closeModal">‹</button><b>멤버 상세</b><button class="iconBtn" id="editCurrent">⚙</button></div><div id="detailBody"></div></div></div>
-
-<div class="modal" id="passwordModal">
-  <div class="passBox">
-    <div class="detailTop">
-      <button class="iconBtn" id="closePassword">‹</button>
-      <b>관리자 인증</b>
-      <span style="width:40px"></span>
-    </div>
-    <h2>관리자 비밀번호</h2>
-    <p>코치/학생 관리는 관리자 인증 후 사용할 수 있습니다.</p>
-    <div class="passGrid">
-      <input id="adminPasswordInput" type="password" placeholder="비밀번호 입력" autocomplete="current-password">
-    </div>
-    <div class="passActions">
-      <button id="confirmPassword">확인</button>
-      <button id="cancelPassword" class="danger">닫기</button>
-    </div>
-    <div class="passError" id="passError">비밀번호가 올바르지 않습니다.</div>
-  </div>
-</div>
-
-<div class="modal" id="adminModal"><div class="adminBox"><div class="detailTop"><button class="iconBtn" id="closeAdmin">‹</button><b>코치/학생 관리</b><button class="iconBtn" id="exportData">⇩</button></div><div class="adminGrid"><label>수정할 멤버<select id="adminMember"></select><span class="adminAddHint">신규추가를 선택하면 새 멤버로 저장됩니다.</span></label><div class="adminRow"><label>이름<input id="aName"></label><label>구분<select id="aType"><option value="leader">감독</option><option value="coach">코치</option><option value="player">학생</option></select></label></div><div class="adminRow"><label>역할<input id="aRole"></label><label>종족<input id="aRace"></label></div><div class="adminRow"><label>티어<input id="aTier" placeholder="3~8, 유스는 9"></label><label>입단일<input id="aJoin" placeholder="YYYY-MM-DD"></label></div><label>프로필 이미지 URL<input id="aImg"></label><label>방송국 URL<input id="aStream"></label><label>유튜브 URL<input id="aYoutube"></label><label>풀튜브/프로필 URL<input id="aProfile"></label><label>IN&OUT 기록일<input id="aIoDate" type="date"></label><label><input id="aLive" type="checkbox" style="width:auto"> 수동 방송중 표시</label></div><div class="saveBar"><button id="saveAdmin">저장</button><button id="deleteAdmin" class="danger">삭제</button><button id="resetAdmin" class="danger">초기화</button><button id="closeAdmin2">닫기</button></div><div class="hint"><b>저장 방식</b><span>관리자 모드는 비밀번호 인증 후 열립니다. 현재 저장은 브라우저 localStorage 기준입니다.</span><span>신규 추가는 IN, 삭제는 OUT 기록이 자동으로 IN&OUT에 추가됩니다.</span><span>여러 사람이 같은 데이터를 공유하려면 Vercel API + GitHub JSON 저장 방식으로 확장하면 됩니다.</span></div></div></div>
+<div class="modal" id="adminModal"><div class="adminBox"><div class="detailTop"><button class="iconBtn" id="closeAdmin">‹</button><b>코치/학생 관리</b><button class="iconBtn" id="exportData">⇩</button></div><div class="adminGrid"><label>수정할 멤버<select id="adminMember"></select><span class="adminAddHint">신규추가를 선택하면 새 멤버로 저장됩니다.</span></label><div class="adminRow"><label>이름<input id="aName"></label><label>구분<select id="aType"><option value="leader">감독</option><option value="coach">코치</option><option value="player">학생</option></select></label></div><div class="adminRow"><label>역할<input id="aRole"></label><label>종족<input id="aRace"></label></div><div class="adminRow"><label>티어<input id="aTier" placeholder="3~8, 유스는 9"></label><label>입단일<input id="aJoin" placeholder="YYYY-MM-DD"></label></div><label>프로필 이미지 URL<input id="aImg"></label><label>방송국 URL<input id="aStream"></label><label>유튜브 URL<input id="aYoutube"></label><label>풀튜브/프로필 URL<input id="aProfile"></label><label>IN&OUT 기록일<input id="aIoDate" type="date"></label><label><input id="aLive" type="checkbox" style="width:auto"> 수동 방송중 표시</label></div><div class="saveBar"><button id="saveAdmin">저장</button><button id="deleteAdmin" class="danger">삭제</button><button id="resetAdmin" class="danger">초기화</button><button id="closeAdmin2">닫기</button></div><div class="hint"><b>저장 방식</b><span>현재 파일은 Vercel 정적 페이지에서 바로 쓸 수 있게 브라우저 localStorage에 저장됩니다.</span><span>신규 추가는 IN, 삭제는 OUT 기록이 자동으로 IN&OUT에 추가됩니다.</span><span>여러 사람이 같은 데이터를 공유하려면 Vercel API + GitHub JSON 저장 방식으로 확장하면 됩니다.</span></div></div></div>
 <script>
 const TEAM = {
     name: "츠캄몬스타즈 현황판",
@@ -224,12 +108,6 @@ const ANALYSIS_JSON_URL = "https://raw.githubusercontent.com/kill662477-cmyk/sil
 const NOTICE_JSON_URL = "https://raw.githubusercontent.com/kill662477-cmyk/silver0love/main/notices.json";
 const YOUTUBE_JSON_URL = "https://raw.githubusercontent.com/kill662477-cmyk/youtube/main/youtube.json";
 const KAMRINI_JSON_URL = "https://raw.githubusercontent.com/kill662477-cmyk/RINI/main/data/kamrini-videos.json";
-const ADMIN_PASSWORD_KEY = "monstarz-admin-auth-v1";
-/*
-  임시 프론트 잠금 비밀번호.
-  Vercel API 연결 후에는 이 값을 프론트에 두지 말고 서버 환경변수 ADMIN_PASSWORD로 검증해야 합니다.
-*/
-const ADMIN_PASSWORD = "1931";
 const INOUT_HISTORY = [
     { date: "24.07.08", events: [{ name: "김윤환", race: "Z", status: "IN" }, { name: "이경민", race: "P", status: "IN" }] },
     { date: "24.07.09", events: [{ name: "졈니", race: "P", status: "IN" }, { name: "디임", race: "P", status: "IN" }] },
@@ -342,6 +220,21 @@ let ioFilter = 'all';
 let ioSearchText = '';
 const $ = (s, r=document) => r.querySelector(s);
 const $$ = (s, r=document) => Array.from(r.querySelectorAll(s));
+
+const FETCH_CACHE = new Map();
+async function cachedJson(url, ttl=60000){
+  const now = Date.now();
+  const hit = FETCH_CACHE.get(url);
+  if(hit && now - hit.time < ttl){
+    return hit.data;
+  }
+  const r = await fetch(url, {cache:'default'});
+  if(!r.ok) throw new Error(`${url} ${r.status}`);
+  const data = await r.json();
+  FETCH_CACHE.set(url, {time:now, data});
+  return data;
+}
+
 function escapeHtml(v){return String(v??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));}
 function safeUrl(v){return v && v !== '#' ? v : '#';}
 function loadMembers(){try{const saved=JSON.parse(localStorage.getItem(STORAGE_KEY)||'null'); if(Array.isArray(saved)&&saved.length) return saved;}catch(e){} return MEMBERS.map(m=>({...m}));}
@@ -380,88 +273,15 @@ function monthlyRecordText(m){
   if(record === '전적없음') return `${record} / 승률 ${rate}`;
   return `${record} / 승률 ${rate}`;
 }
-async function fetchAnalysis(){
-  try{
-    const r = await fetch(`${ANALYSIS_JSON_URL}?t=${Date.now()}`, {cache:'no-store'});
-    const data = await r.json();
-    analysisItems = Array.isArray(data) ? data : (data.items || []);
-  }catch(e){
-    analysisItems = [];
-  }
-  if(document.querySelector('#modal.show') && currentMemberIndex > -1){
-    openDetail(currentMemberIndex);
-  }
-}
-
-
-function openModal(el){
-  if(!el) return;
-  el.classList.add('show');
-  document.body.classList.add('modal-open');
-}
-function closeModalEl(el){
-  if(!el) return;
-  el.classList.remove('show');
-  if(!document.querySelector('.modal.show')){
-    document.body.classList.remove('modal-open');
-  }
-}
-
-function bindMemberClicks(){$$('[data-member]').forEach(el=>el.addEventListener('click',e=>{if(e.target.closest('a')) return; openDetail(Number(el.dataset.member));}));}
-function openDetail(idx){currentMemberIndex=idx; const m=members[idx]; if(!m) return; const live=isLive(m); $('#detailBody').innerHTML=`<div class="profileHero"><img src="${memberImg(m)}" alt="${escapeHtml(m.name)}"><div><h2>${escapeHtml(m.name)}</h2><p>${roleName(m)} · ${escapeHtml(m.race)} · ${specialRole(m)}</p><p>${live?'🔴 방송중':'⚫ 오프라인'}</p></div></div><div class="detailBtns">${buttons(m)}</div><div class="infoBox"><div class="infoRow"><span>입단일</span><b>${shortDate(joinDate(m))} (${dday(joinDate(m))})</b></div><div class="infoRow"><span>SOOP ID</span><b>${escapeHtml(m.userId||'-')}</b></div><div class="infoRow"><span>티어/포지션</span><b>${specialRole(m)}</b></div><div class="infoRow"><span>이달전적</span><b>${escapeHtml(monthlyRecordText(m))}</b></div>${hasUrl(live?m.live:m.stream)?`<a class="infoRow link" href="${safeUrl(live?m.live:m.stream)}" target="_blank" rel="noopener"><span>방송 링크</span><b>${safeUrl(live?m.live:m.stream)}</b></a>`:`<div class="infoRow"><span>방송 링크</span><b>-</b></div>`}</div>`; openModal($('#modal'));}
-function renderInout(){let list=inoutHistory; const q=ioSearchText.trim().toLowerCase(); if(ioFilter!=='all') list=list.map(row=>({...row,events:row.events.filter(e=>e.status===ioFilter)})).filter(row=>row.events.length); if(q) list=list.map(row=>({...row,events:row.events.filter(e=>String(e.name||'').toLowerCase().includes(q))})).filter(row=>row.events.length); $('#ioCnt').textContent=`${list.length}건`; $('#ioList').innerHTML=list.slice().reverse().map(row=>`<article class="io"><div class="ioDate">${row.date}</div><div class="ioEvents">${row.events.map(e=>`<span class="ioPerson">${escapeHtml(e.name)} <small>${e.race}</small> <i class="tag ${e.status}">${e.status}</i></span>`).join('')}</div></article>`).join('')||empty('IN&OUT 데이터가 없습니다.');}
-async function fetchNotices(){try{const r=await fetch(`${NOTICE_JSON_URL}?t=${Date.now()}`,{cache:'no-store'}); const data=await r.json(); noticeItems=Array.isArray(data)?data:(data.items||data.notices||[]);}catch(e){noticeItems=NOTICE_FALLBACK;} renderNotices();}
-function noticeUrl(n){return safeUrl(n.url||n.link||n.href||n.boardUrl||n.postUrl||n.noticeUrl||n.stationUrl||'');}
-function noticeAuthor(n){return n.station||n.author||n.name||n.writer||n.channelTitle||n.userName||'작성자 미상';}
-function renderNotices(){
-  $('#noticeCnt').textContent=`${noticeItems.length}개`;
-  $('#noticeList').innerHTML=noticeItems.slice(0,30).map(n=>{
-    const url=noticeUrl(n);
-    const tag=n.tag||n.category||'공지';
-    const author=noticeAuthor(n);
-    const body=n.body||n.summary||n.content||n.title||n.subject||'';
-    const time=n.date||n.createdAt||n.time||n.publishedAt||'';
-    const inner=`<span class="pill ${/new|중요/i.test(tag)?'new':''}">${escapeHtml(tag)}</span><strong class="noticeAuthor">${escapeHtml(author)}</strong><p>${escapeHtml(body)}</p><div class="foot"><span></span><span>${escapeHtml(time)}</span></div>`;
-    return url?`<a class="notice linked" href="${url}" target="_blank" rel="noopener">${inner}</a>`:`<article class="notice">${inner}</article>`;
-  }).join('')||empty('공지 데이터가 없습니다.');
-}
-function getVideoId(url){return String(url||'').match(/(?:v=|youtu\.be\/|embed\/)([\w-]{6,})/)?.[1]||'';}
-async function fetchYoutube(){try{const [a,b]=await Promise.allSettled([fetch(`${YOUTUBE_JSON_URL}?t=${Date.now()}`,{cache:'no-store'}).then(r=>r.json()),fetch(`${KAMRINI_JSON_URL}?t=${Date.now()}`,{cache:'no-store'}).then(r=>r.json())]); const ai=a.status==='fulfilled'?(a.value.items||a.value||[]):[]; const bi=b.status==='fulfilled'?(b.value.items||b.value||[]):[]; function label(v){const raw=String(v.name||v.sourceName||v.channelTitle||'').toLowerCase(); if(raw.includes('kinkon')||raw.includes('팬튜브 1')||raw.includes('팬튜브1')||raw.includes('팬유튜브1')||raw.includes('팬유튜브 1')) return 'KINKON'; if(raw.includes('팬튜브 2')||raw.includes('팬튜브2')||raw.includes('팬유튜브2')||raw.includes('팬유튜브 2')||raw.includes('츠캄팬튜브')) return '츠캄팬튜브 TsuCalm Fantube'; if(raw.includes('캄린')||raw.includes('kamrini')) return '캄린이'; return v.name||v.sourceName||v.channelTitle||'팬튜브';} youtubeItems=[...ai,...bi].map(v=>{const url=v.url||v.link||(v.videoId?`https://www.youtube.com/watch?v=${v.videoId}`:''); const id=v.videoId||getVideoId(url); const date=v.publishedAt||v.updatedAt||v.pubDate||v.date||''; return {...v,url,videoId:id,thumbnail:v.thumbnail||(id?`https://i.ytimg.com/vi/${id}/hqdefault.jpg`:''),sourceName:label(v),sortDate:date};}).filter(v=>v.videoId); const seen=new Set(); youtubeItems=youtubeItems.filter(v=>seen.has(v.videoId)?false:(seen.add(v.videoId),true)).sort((x,y)=>new Date(y.sortDate||0)-new Date(x.sortDate||0));}catch(e){youtubeItems=[];} renderYoutube();}
-function renderYoutube(){$('#videoList').innerHTML=youtubeItems.slice(0,24).map(v=>`<a class="video" href="${safeUrl(v.url)}" target="_blank" rel="noopener"><img class="thumb" src="${v.thumbnail}" alt=""><div><h3>${escapeHtml(v.title||'영상')}</h3><p>${escapeHtml(v.sourceName)} · ${escapeHtml(v.publishedText||v.viewCountText||v.publishedAt||'')}</p></div></a>`).join('')||empty('유튜브 데이터를 불러오지 못했습니다.');}
-async function fetchLive(){$('#checkTime').textContent='확인중'; try{const r=await fetch(`${LIVE_STATUS_URL}?t=${Date.now()}`,{cache:'no-store'}); const data=await r.json(); liveStatusMap=data.statuses||data||{}; $('#checkTime').textContent=(data.checkedAt||new Date().toLocaleTimeString('ko-KR',{hour:'2-digit',minute:'2-digit'})).replace('T',' ').slice(5,16);}catch(e){$('#checkTime').textContent='실패';} render();}
+async function fetchAnalysis(){try{const data=await cachedJson(ANALYSIS_JSON_URL,120000); analysisItems=Array.isArray(data)?data:(data.items||[]);}catch(e){console.warn('analysis fetch failed',e.message); if(!analysisItems.length) analysisItems=[];} if(document.querySelector('#modal.show') && currentMemberIndex > -1){openDetail(currentMemberIndex);}}
+async function fetchLive(){$('#checkTime').textContent='확인중'; try{const data=await cachedJson(LIVE_STATUS_URL,20000); liveStatusMap=data.statuses||data||{}; $('#checkTime').textContent=(data.checkedAt||new Date().toLocaleTimeString('ko-KR',{hour:'2-digit',minute:'2-digit'})).replace('T',' ').slice(5,16);}catch(e){console.warn('live fetch failed',e.message); $('#checkTime').textContent='유지';} render();}
 function fillAdminSelect(){const sel=$('#adminMember'); const prev=sel.value; sel.innerHTML=`<option value="new">＋ 신규추가</option>`+members.map((m,i)=>`<option value="${i}">${escapeHtml(m.name)} / ${roleName(m)}</option>`).join(''); sel.value=prev || (members.length?'0':'new'); loadAdminForm(sel.value);}
 function loadAdminForm(idx){if(idx==='new'){['#aName','#aRole','#aRace','#aTier','#aJoin','#aImg','#aStream','#aYoutube','#aProfile'].forEach(x=>$(x).value=''); $('#aType').value='player'; $('#aRole').value='학생'; $('#aIoDate').value=todayInputValue(); $('#aLive').checked=false; $('#deleteAdmin').disabled=true; return;} idx=Number(idx); const m=members[idx]; if(!m) return; $('#aName').value=m.name||''; $('#aType').value=m.type||'player'; $('#aRole').value=m.role||roleName(m); $('#aRace').value=m.race||''; $('#aTier').value=m.tier??''; $('#aJoin').value=joinDate(m); $('#aImg').value=memberImg(m); $('#aStream').value=m.stream||''; $('#aYoutube').value=m.youtube||''; $('#aProfile').value=m.profile||''; $('#aIoDate').value=todayInputValue(); $('#aLive').checked=!!m.liveManual; $('#deleteAdmin').disabled=false;}
 function saveAdminForm(){const raw=$('#adminMember').value; const isNew=raw==='new'; const idx=Number(raw||0); const base=isNew?{}:members[idx]; if(!base) return; const name=$('#aName').value.trim(); if(!name){alert('이름을 입력하세요.');return;} const item={...base,name,type:$('#aType').value,role:$('#aRole').value.trim()||roleName({type:$('#aType').value}),race:$('#aRace').value.trim(),tier:$('#aTier').value.trim()?Number($('#aTier').value.trim()):null,profileImage:$('#aImg').value.trim(),stream:$('#aStream').value.trim(),live:$('#aStream').value.trim().includes('play.sooplive.com')?$('#aStream').value.trim():($('#aStream').value.trim()?$('#aStream').value.trim().replace('www.sooplive.com/station/','play.sooplive.com/'):''),youtube:$('#aYoutube').value.trim(),profile:$('#aProfile').value.trim(),liveManual:$('#aLive').checked}; if(!item.userId && item.stream){item.userId=item.stream.split('/').filter(Boolean).pop()||'';} if(isNew) members.push(item); else members[idx]=item; if($('#aJoin').value.trim()) JOIN_DATES[item.name]=$('#aJoin').value.trim(); saveMembers(); if(isNew) addInoutRecord(item,'IN',$('#aIoDate').value); render(); $('#adminMember').value=String(members.indexOf(item)); loadAdminForm($('#adminMember').value); alert(isNew?'신규 멤버가 추가되고 IN&OUT에 IN으로 기록되었습니다.':'저장되었습니다.');}
 function deleteAdminMember(){const raw=$('#adminMember').value; if(raw==='new') return alert('삭제할 멤버를 선택하세요.'); const idx=Number(raw); const m=members[idx]; if(!m) return; if(!confirm(`${m.name} 멤버를 삭제하고 IN&OUT에 OUT으로 기록할까요?`)) return; addInoutRecord(m,'OUT',$('#aIoDate').value); members.splice(idx,1); saveMembers(); currentMemberIndex=-1; render(); $('#adminMember').value='new'; loadAdminForm('new'); alert('삭제되었습니다.');}
-
-function isAdminAuthed(){
-  return sessionStorage.getItem(ADMIN_PASSWORD_KEY) === 'ok';
-}
-function openAdminGate(){
-  if(isAdminAuthed()){
-    openModal($('#adminModal'));
-    return;
-  }
-  $('#adminPasswordInput').value='';
-  $('#passError').classList.remove('show');
-  openModal($('#passwordModal'));
-  setTimeout(()=>$('#adminPasswordInput')?.focus(), 50);
-}
-function confirmAdminPassword(){
-  const input = $('#adminPasswordInput').value.trim();
-  if(input === ADMIN_PASSWORD){
-    sessionStorage.setItem(ADMIN_PASSWORD_KEY, 'ok');
-    closeModalEl($('#passwordModal'));
-    openModal($('#adminModal'));
-    return;
-  }
-  $('#passError').classList.add('show');
-  $('#adminPasswordInput').select();
-}
-
 function setTab(tab){$$('.panel').forEach(p=>p.classList.toggle('active',p.id===tab)); $$('#tabs .tab,.bottomNav .navBtn').forEach(b=>b.classList.toggle('active',b.dataset.tab===tab)); $('.tools').classList.toggle('hidden', tab!=='board'); $('.stats').classList.toggle('hidden', tab!=='board');}
 $$('[data-tab]').forEach(b=>b.addEventListener('click',()=>setTab(b.dataset.tab))); $$('#inout [data-io]').forEach(b=>b.addEventListener('click',()=>{ioFilter=b.dataset.io; $$('#inout [data-io]').forEach(x=>x.classList.toggle('active',x===b)); renderInout();}));
-$('#q').addEventListener('input',render); $('#roleFilter').addEventListener('change',render); $('#refreshLive').addEventListener('click',fetchLive); $('#closeModal').addEventListener('click',()=>closeModalEl($('#modal'))); $('#editCurrent').addEventListener('click',()=>{closeModalEl($('#modal')); if(isAdminAuthed()){ openModal($('#adminModal')); $('#adminMember').value=String(currentMemberIndex); loadAdminForm(currentMemberIndex); } else { openAdminGate(); const wait=setInterval(()=>{ if(isAdminAuthed()){ clearInterval(wait); $('#adminMember').value=String(currentMemberIndex); loadAdminForm(currentMemberIndex); } }, 200); }}); $('#openAdmin').addEventListener('click',openAdminGate); $('#closePassword').addEventListener('click',()=>closeModalEl($('#passwordModal'))); $('#cancelPassword').addEventListener('click',()=>closeModalEl($('#passwordModal'))); $('#confirmPassword').addEventListener('click',confirmAdminPassword); $('#adminPasswordInput').addEventListener('keydown',e=>{if(e.key==='Enter') confirmAdminPassword();}); $('#closeAdmin').addEventListener('click',()=>closeModalEl($('#adminModal'))); $('#closeAdmin2').addEventListener('click',()=>closeModalEl($('#adminModal'))); $('#adminMember').addEventListener('change',e=>loadAdminForm(e.target.value)); $('#saveAdmin').addEventListener('click',saveAdminForm); $('#deleteAdmin').addEventListener('click',deleteAdminMember); $('#resetAdmin').addEventListener('click',()=>{if(confirm('브라우저 저장값을 지우고 파일 원본 데이터로 되돌릴까요?')){localStorage.removeItem(STORAGE_KEY); localStorage.removeItem(INOUT_STORAGE_KEY); members=MEMBERS.map(m=>({...m})); inoutHistory=loadInoutHistory(); render(); renderInout();}}); $('#exportData').addEventListener('click',()=>{const blob=new Blob([JSON.stringify(members,null,2)],{type:'application/json'}); const a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download='members.json'; a.click(); URL.revokeObjectURL(a.href);}); $$('.collapse').forEach(btn=>btn.addEventListener('click',()=>{const el=$('#'+btn.dataset.fold); el.classList.toggle('hidden'); btn.textContent=el.classList.contains('hidden')?'펼치기⌄':'접기⌃';})); $('#ioSearch').addEventListener('input',e=>{ioSearchText=e.target.value; renderInout();});
+$('#q').addEventListener('input',render); $('#roleFilter').addEventListener('change',render); $('#refreshLive').addEventListener('click',fetchLive); $('#closeModal').addEventListener('click',()=>$('#modal').classList.remove('show')); $('#editCurrent').addEventListener('click',()=>{$('#modal').classList.remove('show'); $('#adminModal').classList.add('show'); $('#adminMember').value=String(currentMemberIndex); loadAdminForm(currentMemberIndex);}); $('#openAdmin').addEventListener('click',()=>$('#adminModal').classList.add('show')); $('#closeAdmin').addEventListener('click',()=>$('#adminModal').classList.remove('show')); $('#closeAdmin2').addEventListener('click',()=>$('#adminModal').classList.remove('show')); $('#adminMember').addEventListener('change',e=>loadAdminForm(e.target.value)); $('#saveAdmin').addEventListener('click',saveAdminForm); $('#deleteAdmin').addEventListener('click',deleteAdminMember); $('#resetAdmin').addEventListener('click',()=>{if(confirm('브라우저 저장값을 지우고 파일 원본 데이터로 되돌릴까요?')){localStorage.removeItem(STORAGE_KEY); localStorage.removeItem(INOUT_STORAGE_KEY); members=MEMBERS.map(m=>({...m})); inoutHistory=loadInoutHistory(); render(); renderInout();}}); $('#exportData').addEventListener('click',()=>{const blob=new Blob([JSON.stringify(members,null,2)],{type:'application/json'}); const a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download='members.json'; a.click(); URL.revokeObjectURL(a.href);}); $$('.collapse').forEach(btn=>btn.addEventListener('click',()=>{const el=$('#'+btn.dataset.fold); el.classList.toggle('hidden'); btn.textContent=el.classList.contains('hidden')?'펼치기⌄':'접기⌃';})); $('#ioSearch').addEventListener('input',e=>{ioSearchText=e.target.value; renderInout();});
 render(); renderInout(); fetchNotices(); fetchYoutube(); fetchAnalysis(); fetchLive(); setInterval(fetchLive, 120000);
 </script>
 </body>
