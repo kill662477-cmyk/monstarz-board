@@ -79,28 +79,28 @@ body{transition:background .25s ease,color .25s ease}
 }
 
 
-/* ===== mobile modal position optimization ===== */
+
+/* ===== mobile modal viewport-center optimization ===== */
 @media(max-width:520px){
   .modal{
-    padding:0 10px 12px;
-    align-items:flex-end;
-    justify-content:center;
+    position:fixed;
+    inset:0;
+    padding:12px;
     overflow:hidden;
+    align-items:center;
+    justify-content:center;
   }
   .modal.show{
     display:flex;
   }
   .modal .detail,
   .modal .adminBox{
-    width:100%;
-    max-width:560px;
-    max-height:88vh;
-    margin:auto auto 0;
+    width:min(100%, 560px);
+    max-height:86dvh;
+    margin:0;
     overflow:auto;
-    border-radius:22px 22px 18px 18px;
-  }
-  .modal .detail{
-    transform:translateY(0);
+    border-radius:22px;
+    -webkit-overflow-scrolling:touch;
   }
 }
 
