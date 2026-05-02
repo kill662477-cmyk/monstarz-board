@@ -80,6 +80,16 @@ body{transition:background .25s ease,color .25s ease}
 
 
 
+/* ===== mobile modal viewport-center optimization ===== */
+@media(max-width:520px){
+  .modal{
+    position:fixed;
+    inset:0;
+    padding:12px;
+    overflow:hidden;
+    align-items:center;
+    justify-content:center;
+  }
   .modal.show{
     display:flex;
   }
@@ -95,22 +105,79 @@ body{transition:background .25s ease,color .25s ease}
 }
 
 
-/* ===== modal center (global - wagou fix) ===== */
-.modal.show{
-  display:flex !important;
-  align-items:center;
-  justify-content:center;
+/* ===== inline accordion detail (wago-friendly) ===== */
+.inlineDetail{
+  grid-column:1 / -1;
+  border:1px solid rgba(92,164,255,.32);
+  border-radius:18px;
+  background:linear-gradient(180deg,rgba(7,21,34,.98),rgba(4,16,29,.98));
+  box-shadow:0 14px 42px rgba(0,0,0,.28), inset 0 0 0 1px rgba(255,255,255,.035);
+  padding:14px;
+  animation:inlineDetailOpen .16s ease-out;
 }
-.modal{
-  position:fixed;
-  inset:0;
+@keyframes inlineDetailOpen{
+  from{opacity:.2; transform:translateY(-4px)}
+  to{opacity:1; transform:translateY(0)}
 }
-.modal .detail,
-.modal .adminBox{
-  width:min(100%, 560px);
-  max-height:86vh;
-  overflow:auto;
-  margin:0;
+.inlineDetail .detailTop{
+  margin-bottom:12px;
+}
+.inlineDetail .iconBtn{
+  width:34px;
+  height:34px;
+  font-size:18px;
+}
+.inlineDetail .profileHero{
+  grid-template-columns:86px 1fr;
+  gap:12px;
+}
+.inlineDetail .profileHero img{
+  width:86px;
+  height:86px;
+  border-radius:18px;
+}
+.inlineDetail .profileHero h2{
+  font-size:24px;
+}
+.inlineDetail .profileHero p{
+  font-size:14px;
+}
+.inlineDetail .detailBtns{
+  margin:14px 0;
+}
+.inlineDetailClose{
+  width:34px;
+  height:34px;
+  border:0;
+  border-radius:11px;
+  background:#0a1d33;
+  color:#fff;
+  font-size:18px;
+  cursor:pointer;
+}
+@media(max-width:520px){
+  .inlineDetail{
+    padding:12px;
+    border-radius:15px;
+  }
+  .inlineDetail .profileHero{
+    grid-template-columns:72px 1fr;
+  }
+  .inlineDetail .profileHero img{
+    width:72px;
+    height:72px;
+    border-radius:16px;
+  }
+  .inlineDetail .profileHero h2{
+    font-size:21px;
+  }
+  .inlineDetail .profileHero p{
+    font-size:13px;
+  }
+  .inlineDetail .detailBtns{
+    grid-template-columns:repeat(auto-fit,minmax(80px,1fr));
+    gap:7px;
+  }
 }
 
 </style>
@@ -251,6 +318,7 @@ let analysisItems = [];
 let noticeItems = [];
 let youtubeItems = [];
 let currentMemberIndex = -1;
+let inlineDetailIndex = -1;
 let ioFilter = 'all';
 let ioSearchText = '';
 const $ = (s, r=document) => r.querySelector(s);
@@ -306,13 +374,97 @@ function memberImg(m){return m.profileImage || m.img || `https://placehold.co/20
 function hasUrl(v){return !!(v && v !== '#');}
 function buttons(m){const arr=[]; const station=m.stream||m.station||m.live; if(hasUrl(station)) arr.push(`<a class="go" href="${safeUrl(station)}" target="_blank" rel="noopener">📺 방송국</a>`); if(hasUrl(m.youtube)) arr.push(`<a class="go yt" href="${safeUrl(m.youtube)}" target="_blank" rel="noopener">▶ 유튜브</a>`); if(hasUrl(m.profile)) arr.push(`<a class="go full" href="${safeUrl(m.profile)}" target="_blank" rel="noopener">풀튜브</a>`); return arr.length?`<div class="btns">${arr.join('')}</div>`:'';}
 function passFilter(m){const q=$('#q').value.trim().toLowerCase(); const rf=$('#roleFilter').value; if(rf==='live'&&!isLive(m)) return false; if(rf!=='all'&&rf!=='live'&&m.type!==rf) return false; if(!q) return true; return [m.name,m.role,roleName(m),m.race,specialRole(m),m.userId].join(' ').toLowerCase().includes(q);}
-function render(){$('#teamName').textContent=TEAM.name; $('#teamLogo').src=TEAM.logo; const filtered=members.filter(passFilter); const directors=filtered.filter(m=>m.type==='leader'); const coaches=filtered.filter(m=>m.type==='coach'); const students=filtered.filter(m=>m.type==='player'); $('#totalCnt').textContent=members.length; $('#liveCnt').textContent=members.filter(isLive).length; $('#studentCnt').textContent=members.filter(m=>m.type==='player').length; $('#directorCnt').textContent=`${members.filter(m=>m.type==='leader').length}명`; $('#directors').innerHTML=directors.map(m=>directorCard(m)).join('')||empty('감독 데이터가 없습니다.'); $('#coaches').innerHTML=coaches.map(m=>miniCard(m)).join('')||empty('코치 데이터가 없습니다.'); $('#students').innerHTML=students.map(m=>miniCard(m)).join('')||empty('학생 데이터가 없습니다.'); bindMemberClicks(); fillAdminSelect();}
+function render(){$('#teamName').textContent=TEAM.name; $('#teamLogo').src=TEAM.logo; const filtered=members.filter(passFilter); const directors=filtered.filter(m=>m.type==='leader'); const coaches=filtered.filter(m=>m.type==='coach'); const students=filtered.filter(m=>m.type==='player'); $('#totalCnt').textContent=members.length; $('#liveCnt').textContent=members.filter(isLive).length; $('#studentCnt').textContent=members.filter(m=>m.type==='player').length; $('#directorCnt').textContent=`${members.filter(m=>m.type==='leader').length}명`; $('#directors').innerHTML=directors.map(m=>directorCard(m)).join('')||empty('감독 데이터가 없습니다.'); $('#coaches').innerHTML=coaches.map(m=>miniCard(m)).join('')||empty('코치 데이터가 없습니다.'); $('#students').innerHTML=students.map(m=>miniCard(m)).join('')||empty('학생 데이터가 없습니다.'); bindMemberClicks(); fillAdminSelect(); restoreInlineDetail();}
+
+function restoreInlineDetail(){
+  if(inlineDetailIndex < 0) return;
+  const m=members[inlineDetailIndex];
+  const card=document.querySelector(`[data-member="${inlineDetailIndex}"]`);
+  if(!m || !card || $('#inlineDetail')) return;
+  const wrap=document.createElement('div');
+  wrap.innerHTML=inlineDetailHtml(m, inlineDetailIndex);
+  const detail=wrap.firstElementChild;
+  card.insertAdjacentElement('afterend', detail);
+  const closeBtn=detail.querySelector('#closeInlineDetail');
+  if(closeBtn) closeBtn.addEventListener('click', closeInlineDetail);
+  const editBtn=detail.querySelector('#editInlineDetail');
+  if(editBtn) editBtn.addEventListener('click', ()=>{
+    currentMemberIndex=inlineDetailIndex;
+    $('#adminModal').classList.add('show');
+    $('#adminMember').value=String(inlineDetailIndex);
+    loadAdminForm(inlineDetailIndex);
+  });
+}
+
 function empty(t){return `<div class="empty">${escapeHtml(t)}</div>`;}
 function directorCard(m){const idx=members.indexOf(m), live=isLive(m);return `<article class="director ${live?'live':''}" data-member="${idx}"><img class="avatar" src="${memberImg(m)}" onerror="this.src='https://placehold.co/200x200/13243a/dcecff?text=${encodeURIComponent(m.name)}'" alt="${escapeHtml(m.name)}"><div><h3>${escapeHtml(m.name)}</h3><div class="meta">${escapeHtml(m.race)} · ${specialRole(m)}</div><div class="date">입단일 : ${shortDate(joinDate(m))} (${dday(joinDate(m))})</div></div><span class="badge ${live?'live':'off'}"><i class="dot"></i><span class="desktopStatus">${live?'방송중':'오프라인'}</span><span class="mobileStatus">${live?'LIVE':'OFF'}</span></span>${buttons(m)}</article>`;}
 function miniCard(m){const idx=members.indexOf(m), live=isLive(m);return `<button class="mini ${live?'live':''}" data-member="${idx}"><div class="row"><img src="${memberImg(m)}" onerror="this.src='https://placehold.co/200x200/13243a/dcecff?text=${encodeURIComponent(m.name)}'" alt="${escapeHtml(m.name)}"><div><h3>${escapeHtml(m.name)}</h3><div class="race">${escapeHtml(m.race)} · ${specialRole(m)}</div><div class="state ${live?'live':''}"><span class="liveDot"></span><span class="desktopStatus">${live?'방송중':'오프라인'}</span><span class="mobileStatus">${live?'LIVE':'OFF'}</span></div></div></div><span class="arrow">›</span></button>`;}
 
 
-function bindMemberClicks(){$$('[data-member]').forEach(el=>el.addEventListener('click',e=>{if(e.target.closest('a')) return; openDetail(Number(el.dataset.member));}));}
+
+function inlineDetailHtml(m, idx){
+  const live=isLive(m);
+  return `<article class="inlineDetail" id="inlineDetail" data-inline-detail="${idx}">
+    <div class="detailTop">
+      <button class="inlineDetailClose" type="button" id="closeInlineDetail">×</button>
+      <b>멤버 상세</b>
+      <button class="iconBtn" type="button" id="editInlineDetail">⚙</button>
+    </div>
+    <div class="profileHero">
+      <img src="${memberImg(m)}" onerror="this.src='https://placehold.co/200x200/13243a/dcecff?text=${encodeURIComponent(m.name)}'" alt="${escapeHtml(m.name)}">
+      <div>
+        <h2>${escapeHtml(m.name)}</h2>
+        <p>${roleName(m)} · ${escapeHtml(m.race)} · ${specialRole(m)}</p>
+        <p>${live?'🔴 방송중':'⚫ 오프라인'}</p>
+      </div>
+    </div>
+    <div class="detailBtns">${buttons(m)}</div>
+    <div class="infoBox">
+      <div class="infoRow"><span>입단일</span><b>${shortDate(joinDate(m))} (${dday(joinDate(m))})</b></div>
+      <div class="infoRow"><span>SOOP ID</span><b>${escapeHtml(m.userId||'-')}</b></div>
+      <div class="infoRow"><span>티어/포지션</span><b>${specialRole(m)}</b></div>
+      <div class="infoRow"><span>이달전적</span><b>${escapeHtml(monthlyRecordText(m))}</b></div>
+      ${hasUrl(live?m.live:m.stream)
+        ? `<a class="infoRow link" href="${safeUrl(live?m.live:m.stream)}" target="_blank" rel="noopener"><span>방송 링크</span><b>${safeUrl(live?m.live:m.stream)}</b></a>`
+        : `<div class="infoRow"><span>방송 링크</span><b>-</b></div>`}
+    </div>
+  </article>`;
+}
+function closeInlineDetail(){
+  inlineDetailIndex=-1;
+  const old=$('#inlineDetail');
+  if(old) old.remove();
+}
+function openInlineDetail(idx, sourceEl){
+  const m=members[idx];
+  if(!m) return;
+  if(inlineDetailIndex===idx && $('#inlineDetail')){
+    closeInlineDetail();
+    return;
+  }
+  closeInlineDetail();
+  currentMemberIndex=idx;
+  inlineDetailIndex=idx;
+  const wrap=document.createElement('div');
+  wrap.innerHTML=inlineDetailHtml(m, idx);
+  const detail=wrap.firstElementChild;
+  const card=sourceEl.closest('[data-member]');
+  if(card){
+    card.insertAdjacentElement('afterend', detail);
+  }
+  const closeBtn=detail.querySelector('#closeInlineDetail');
+  if(closeBtn) closeBtn.addEventListener('click', closeInlineDetail);
+  const editBtn=detail.querySelector('#editInlineDetail');
+  if(editBtn) editBtn.addEventListener('click', ()=>{
+    currentMemberIndex=idx;
+    $('#adminModal').classList.add('show');
+    $('#adminMember').value=String(idx);
+    loadAdminForm(idx);
+  });
+  detail.scrollIntoView({block:'nearest', behavior:'smooth'});
+}
+
+function bindMemberClicks(){$$('[data-member]').forEach(el=>el.addEventListener('click',e=>{if(e.target.closest('a')) return; openInlineDetail(Number(el.dataset.member), el);}));}
 function openDetail(idx){currentMemberIndex=idx; const m=members[idx]; if(!m) return; const live=isLive(m); $('#detailBody').innerHTML=`<div class="profileHero"><img src="${memberImg(m)}" alt="${escapeHtml(m.name)}"><div><h2>${escapeHtml(m.name)}</h2><p>${roleName(m)} · ${escapeHtml(m.race)} · ${specialRole(m)}</p><p>${live?'🔴 방송중':'⚫ 오프라인'}</p></div></div><div class="detailBtns">${buttons(m)}</div><div class="infoBox"><div class="infoRow"><span>입단일</span><b>${shortDate(joinDate(m))} (${dday(joinDate(m))})</b></div><div class="infoRow"><span>SOOP ID</span><b>${escapeHtml(m.userId||'-')}</b></div><div class="infoRow"><span>티어/포지션</span><b>${specialRole(m)}</b></div><div class="infoRow"><span>이달전적</span><b>${escapeHtml(monthlyRecordText(m))}</b></div>${hasUrl(live?m.live:m.stream)?`<a class="infoRow link" href="${safeUrl(live?m.live:m.stream)}" target="_blank" rel="noopener"><span>방송 링크</span><b>${safeUrl(live?m.live:m.stream)}</b></a>`:`<div class="infoRow"><span>방송 링크</span><b>-</b></div>`}</div>`; $('#modal').classList.add('show'); const detailEl=$('#modal .detail'); if(detailEl) detailEl.scrollTop=0;}
 function renderInout(){let list=inoutHistory; const q=ioSearchText.trim().toLowerCase(); if(ioFilter!=='all') list=list.map(row=>({...row,events:row.events.filter(e=>e.status===ioFilter)})).filter(row=>row.events.length); if(q) list=list.map(row=>({...row,events:row.events.filter(e=>String(e.name||'').toLowerCase().includes(q))})).filter(row=>row.events.length); $('#ioCnt').textContent=`${list.length}건`; $('#ioList').innerHTML=list.slice().reverse().map(row=>`<article class="io"><div class="ioDate">${row.date}</div><div class="ioEvents">${row.events.map(e=>`<span class="ioPerson">${escapeHtml(e.name)} <small>${e.race}</small> <i class="tag ${e.status}">${e.status}</i></span>`).join('')}</div></article>`).join('')||empty('IN&OUT 데이터가 없습니다.');}
 async function fetchNotices(){try{const data=await safeFetchJson(NOTICE_JSON_URL,{ttl:60000}); noticeItems=Array.isArray(data)?data:(data.items||data.notices||[]);}catch(e){noticeItems=NOTICE_FALLBACK;} renderNotices();}
