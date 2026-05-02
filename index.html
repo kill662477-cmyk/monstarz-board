@@ -221,19 +221,6 @@ let ioSearchText = '';
 const $ = (s, r=document) => r.querySelector(s);
 const $$ = (s, r=document) => Array.from(r.querySelectorAll(s));
 
-const FETCH_CACHE = new Map();
-async function cachedJson(url, ttl=60000){
-  const now = Date.now();
-  const hit = FETCH_CACHE.get(url);
-  if(hit && now - hit.time < ttl){
-    return hit.data;
-  }
-  const r = await fetch(url, {cache:'default'});
-  if(!r.ok) throw new Error(`${url} ${r.status}`);
-  const data = await r.json();
-  FETCH_CACHE.set(url, {time:now, data});
-  return data;
-}
 
 function escapeHtml(v){return String(v??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));}
 function safeUrl(v){return v && v !== '#' ? v : '#';}
@@ -259,6 +246,29 @@ function empty(t){return `<div class="empty">${escapeHtml(t)}</div>`;}
 function directorCard(m){const idx=members.indexOf(m), live=isLive(m);return `<article class="director ${live?'live':''}" data-member="${idx}"><img class="avatar" src="${memberImg(m)}" onerror="this.src='https://placehold.co/200x200/13243a/dcecff?text=${encodeURIComponent(m.name)}'" alt="${escapeHtml(m.name)}"><div><h3>${escapeHtml(m.name)}</h3><div class="meta">${escapeHtml(m.race)} · ${specialRole(m)}</div><div class="date">입단일 : ${shortDate(joinDate(m))} (${dday(joinDate(m))})</div></div><span class="badge ${live?'live':'off'}"><i class="dot"></i><span class="desktopStatus">${live?'방송중':'오프라인'}</span><span class="mobileStatus">${live?'LIVE':'OFF'}</span></span>${buttons(m)}</article>`;}
 function miniCard(m){const idx=members.indexOf(m), live=isLive(m);return `<button class="mini ${live?'live':''}" data-member="${idx}"><div class="row"><img src="${memberImg(m)}" onerror="this.src='https://placehold.co/200x200/13243a/dcecff?text=${encodeURIComponent(m.name)}'" alt="${escapeHtml(m.name)}"><div><h3>${escapeHtml(m.name)}</h3><div class="race">${escapeHtml(m.race)} · ${specialRole(m)}</div><div class="state ${live?'live':''}"><span class="liveDot"></span><span class="desktopStatus">${live?'방송중':'오프라인'}</span><span class="mobileStatus">${live?'LIVE':'OFF'}</span></div></div></div><span class="arrow">›</span></button>`;}
 
+
+function bindMemberClicks(){$$('[data-member]').forEach(el=>el.addEventListener('click',e=>{if(e.target.closest('a')) return; openDetail(Number(el.dataset.member));}));}
+function openDetail(idx){currentMemberIndex=idx; const m=members[idx]; if(!m) return; const live=isLive(m); $('#detailBody').innerHTML=`<div class="profileHero"><img src="${memberImg(m)}" alt="${escapeHtml(m.name)}"><div><h2>${escapeHtml(m.name)}</h2><p>${roleName(m)} · ${escapeHtml(m.race)} · ${specialRole(m)}</p><p>${live?'🔴 방송중':'⚫ 오프라인'}</p></div></div><div class="detailBtns">${buttons(m)}</div><div class="infoBox"><div class="infoRow"><span>입단일</span><b>${shortDate(joinDate(m))} (${dday(joinDate(m))})</b></div><div class="infoRow"><span>SOOP ID</span><b>${escapeHtml(m.userId||'-')}</b></div><div class="infoRow"><span>티어/포지션</span><b>${specialRole(m)}</b></div><div class="infoRow"><span>이달전적</span><b>${escapeHtml(monthlyRecordText(m))}</b></div>${hasUrl(live?m.live:m.stream)?`<a class="infoRow link" href="${safeUrl(live?m.live:m.stream)}" target="_blank" rel="noopener"><span>방송 링크</span><b>${safeUrl(live?m.live:m.stream)}</b></a>`:`<div class="infoRow"><span>방송 링크</span><b>-</b></div>`}</div>`; $('#modal').classList.add('show');}
+function renderInout(){let list=inoutHistory; const q=ioSearchText.trim().toLowerCase(); if(ioFilter!=='all') list=list.map(row=>({...row,events:row.events.filter(e=>e.status===ioFilter)})).filter(row=>row.events.length); if(q) list=list.map(row=>({...row,events:row.events.filter(e=>String(e.name||'').toLowerCase().includes(q))})).filter(row=>row.events.length); $('#ioCnt').textContent=`${list.length}건`; $('#ioList').innerHTML=list.slice().reverse().map(row=>`<article class="io"><div class="ioDate">${row.date}</div><div class="ioEvents">${row.events.map(e=>`<span class="ioPerson">${escapeHtml(e.name)} <small>${e.race}</small> <i class="tag ${e.status}">${e.status}</i></span>`).join('')}</div></article>`).join('')||empty('IN&OUT 데이터가 없습니다.');}
+async function fetchNotices(){try{const r=await fetch(`${NOTICE_JSON_URL}?t=${Date.now()}`,{cache:'no-store'}); const data=await r.json(); noticeItems=Array.isArray(data)?data:(data.items||data.notices||[]);}catch(e){noticeItems=NOTICE_FALLBACK;} renderNotices();}
+function noticeUrl(n){return safeUrl(n.url||n.link||n.href||n.boardUrl||n.postUrl||n.noticeUrl||n.stationUrl||'');}
+function noticeAuthor(n){return n.station||n.author||n.name||n.writer||n.channelTitle||n.userName||'작성자 미상';}
+function renderNotices(){
+  $('#noticeCnt').textContent=`${noticeItems.length}개`;
+  $('#noticeList').innerHTML=noticeItems.slice(0,30).map(n=>{
+    const url=noticeUrl(n);
+    const tag=n.tag||n.category||'공지';
+    const author=noticeAuthor(n);
+    const body=n.body||n.summary||n.content||n.title||n.subject||'';
+    const time=n.date||n.createdAt||n.time||n.publishedAt||'';
+    const inner=`<span class="pill ${/new|중요/i.test(tag)?'new':''}">${escapeHtml(tag)}</span><strong class="noticeAuthor">${escapeHtml(author)}</strong><p>${escapeHtml(body)}</p><div class="foot"><span></span><span>${escapeHtml(time)}</span></div>`;
+    return url?`<a class="notice linked" href="${url}" target="_blank" rel="noopener">${inner}</a>`:`<article class="notice">${inner}</article>`;
+  }).join('')||empty('공지 데이터가 없습니다.');
+}
+function getVideoId(url){return String(url||'').match(/(?:v=|youtu\.be\/|embed\/)([\w-]{6,})/)?.[1]||'';}
+async function fetchYoutube(){try{const [a,b]=await Promise.allSettled([fetch(`${YOUTUBE_JSON_URL}?t=${Date.now()}`,{cache:'no-store'}).then(r=>r.json()),fetch(`${KAMRINI_JSON_URL}?t=${Date.now()}`,{cache:'no-store'}).then(r=>r.json())]); const ai=a.status==='fulfilled'?(a.value.items||a.value||[]):[]; const bi=b.status==='fulfilled'?(b.value.items||b.value||[]):[]; function label(v){const raw=String(v.name||v.sourceName||v.channelTitle||'').toLowerCase(); if(raw.includes('kinkon')||raw.includes('팬튜브 1')||raw.includes('팬튜브1')||raw.includes('팬유튜브1')||raw.includes('팬유튜브 1')) return 'KINKON'; if(raw.includes('팬튜브 2')||raw.includes('팬튜브2')||raw.includes('팬유튜브2')||raw.includes('팬유튜브 2')||raw.includes('츠캄팬튜브')) return '츠캄팬튜브 TsuCalm Fantube'; if(raw.includes('캄린')||raw.includes('kamrini')) return '캄린이'; return v.name||v.sourceName||v.channelTitle||'팬튜브';} youtubeItems=[...ai,...bi].map(v=>{const url=v.url||v.link||(v.videoId?`https://www.youtube.com/watch?v=${v.videoId}`:''); const id=v.videoId||getVideoId(url); const date=v.publishedAt||v.updatedAt||v.pubDate||v.date||''; return {...v,url,videoId:id,thumbnail:v.thumbnail||(id?`https://i.ytimg.com/vi/${id}/hqdefault.jpg`:''),sourceName:label(v),sortDate:date};}).filter(v=>v.videoId); const seen=new Set(); youtubeItems=youtubeItems.filter(v=>seen.has(v.videoId)?false:(seen.add(v.videoId),true)).sort((x,y)=>new Date(y.sortDate||0)-new Date(x.sortDate||0));}catch(e){youtubeItems=[];} renderYoutube();}
+function renderYoutube(){$('#videoList').innerHTML=youtubeItems.slice(0,24).map(v=>`<a class="video" href="${safeUrl(v.url)}" target="_blank" rel="noopener"><img class="thumb" src="${v.thumbnail}" alt=""><div><h3>${escapeHtml(v.title||'영상')}</h3><p>${escapeHtml(v.sourceName)} · ${escapeHtml(v.publishedText||v.viewCountText||v.publishedAt||'')}</p></div></a>`).join('')||empty('유튜브 데이터를 불러오지 못했습니다.');}
+
 function findAnalysis(m){
   return analysisItems.find(a =>
     (a.userId && m.userId && String(a.userId) === String(m.userId)) ||
@@ -273,8 +283,8 @@ function monthlyRecordText(m){
   if(record === '전적없음') return `${record} / 승률 ${rate}`;
   return `${record} / 승률 ${rate}`;
 }
-async function fetchAnalysis(){try{const data=await cachedJson(ANALYSIS_JSON_URL,120000); analysisItems=Array.isArray(data)?data:(data.items||[]);}catch(e){console.warn('analysis fetch failed',e.message); if(!analysisItems.length) analysisItems=[];} if(document.querySelector('#modal.show') && currentMemberIndex > -1){openDetail(currentMemberIndex);}}
-async function fetchLive(){$('#checkTime').textContent='확인중'; try{const data=await cachedJson(LIVE_STATUS_URL,20000); liveStatusMap=data.statuses||data||{}; $('#checkTime').textContent=(data.checkedAt||new Date().toLocaleTimeString('ko-KR',{hour:'2-digit',minute:'2-digit'})).replace('T',' ').slice(5,16);}catch(e){console.warn('live fetch failed',e.message); $('#checkTime').textContent='유지';} render();}
+async function fetchAnalysis(){try{const r = await fetch(`${ANALYSIS_JSON_URL}?t=${Date.now()}`, {cache:'no-store'}); const data = await r.json(); analysisItems = Array.isArray(data) ? data : (data.items || []);}catch(e){analysisItems = [];} if(document.querySelector('#modal.show') && currentMemberIndex > -1){openDetail(currentMemberIndex);}}
+async function fetchLive(){$('#checkTime').textContent='확인중'; try{const r=await fetch(`${LIVE_STATUS_URL}?t=${Date.now()}`,{cache:'no-store'}); const data=await r.json(); liveStatusMap=data.statuses||data||{}; $('#checkTime').textContent=(data.checkedAt||new Date().toLocaleTimeString('ko-KR',{hour:'2-digit',minute:'2-digit'})).replace('T',' ').slice(5,16);}catch(e){$('#checkTime').textContent='실패';} render();}
 function fillAdminSelect(){const sel=$('#adminMember'); const prev=sel.value; sel.innerHTML=`<option value="new">＋ 신규추가</option>`+members.map((m,i)=>`<option value="${i}">${escapeHtml(m.name)} / ${roleName(m)}</option>`).join(''); sel.value=prev || (members.length?'0':'new'); loadAdminForm(sel.value);}
 function loadAdminForm(idx){if(idx==='new'){['#aName','#aRole','#aRace','#aTier','#aJoin','#aImg','#aStream','#aYoutube','#aProfile'].forEach(x=>$(x).value=''); $('#aType').value='player'; $('#aRole').value='학생'; $('#aIoDate').value=todayInputValue(); $('#aLive').checked=false; $('#deleteAdmin').disabled=true; return;} idx=Number(idx); const m=members[idx]; if(!m) return; $('#aName').value=m.name||''; $('#aType').value=m.type||'player'; $('#aRole').value=m.role||roleName(m); $('#aRace').value=m.race||''; $('#aTier').value=m.tier??''; $('#aJoin').value=joinDate(m); $('#aImg').value=memberImg(m); $('#aStream').value=m.stream||''; $('#aYoutube').value=m.youtube||''; $('#aProfile').value=m.profile||''; $('#aIoDate').value=todayInputValue(); $('#aLive').checked=!!m.liveManual; $('#deleteAdmin').disabled=false;}
 function saveAdminForm(){const raw=$('#adminMember').value; const isNew=raw==='new'; const idx=Number(raw||0); const base=isNew?{}:members[idx]; if(!base) return; const name=$('#aName').value.trim(); if(!name){alert('이름을 입력하세요.');return;} const item={...base,name,type:$('#aType').value,role:$('#aRole').value.trim()||roleName({type:$('#aType').value}),race:$('#aRace').value.trim(),tier:$('#aTier').value.trim()?Number($('#aTier').value.trim()):null,profileImage:$('#aImg').value.trim(),stream:$('#aStream').value.trim(),live:$('#aStream').value.trim().includes('play.sooplive.com')?$('#aStream').value.trim():($('#aStream').value.trim()?$('#aStream').value.trim().replace('www.sooplive.com/station/','play.sooplive.com/'):''),youtube:$('#aYoutube').value.trim(),profile:$('#aProfile').value.trim(),liveManual:$('#aLive').checked}; if(!item.userId && item.stream){item.userId=item.stream.split('/').filter(Boolean).pop()||'';} if(isNew) members.push(item); else members[idx]=item; if($('#aJoin').value.trim()) JOIN_DATES[item.name]=$('#aJoin').value.trim(); saveMembers(); if(isNew) addInoutRecord(item,'IN',$('#aIoDate').value); render(); $('#adminMember').value=String(members.indexOf(item)); loadAdminForm($('#adminMember').value); alert(isNew?'신규 멤버가 추가되고 IN&OUT에 IN으로 기록되었습니다.':'저장되었습니다.');}
