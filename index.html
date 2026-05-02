@@ -78,6 +78,32 @@ body{transition:background .25s ease,color .25s ease}
   }
 }
 
+
+/* ===== mobile modal position optimization ===== */
+@media(max-width:520px){
+  .modal{
+    padding:0 10px 12px;
+    align-items:flex-end;
+    justify-content:center;
+    overflow:hidden;
+  }
+  .modal.show{
+    display:flex;
+  }
+  .modal .detail,
+  .modal .adminBox{
+    width:100%;
+    max-width:560px;
+    max-height:88vh;
+    margin:auto auto 0;
+    overflow:auto;
+    border-radius:22px 22px 18px 18px;
+  }
+  .modal .detail{
+    transform:translateY(0);
+  }
+}
+
 </style>
 </head>
 <body>
@@ -88,7 +114,7 @@ body{transition:background .25s ease,color .25s ease}
     <div class="stats"><div class="stat"><small>전체 인원</small><b id="totalCnt">0</b><em>감독·코치·학생 포함</em></div><div class="stat"><small>방송중</small><b id="liveCnt">0</b><em>현재 LIVE</em></div><div class="stat"><small>학생</small><b id="studentCnt">0</b><em>티어 등록 학생</em></div><div class="stat stat-time"><small>방송 체크</small><b style="font-size:14px" id="checkTime">--</b><em>숲 ON 갱신</em></div></div>
     <div class="tools"><div class="search"><input id="q" placeholder="이름, 종족, 역할 검색"></div><select class="select" id="roleFilter"><option value="all">전체</option><option value="leader">감독</option><option value="coach">코치</option><option value="player">학생</option><option value="live">방송중</option></select><button class="filterBtn" id="refreshLive">↻</button></div>
   </div>
-  <section class="panel active" id="board"><div class="section"><div class="sectionHead"><h2>감독</h2><span id="directorCnt">0명</span></div><div class="directors" id="directors"></div></div><div class="section"><div class="sectionHead"><h2>코치</h2><button class="collapse" data-fold="coaches">접기⌃</button></div><div class="miniGrid" id="coaches"></div></div><div class="section"><div class="sectionHead"><h2>학생</h2><button class="collapse" data-fold="students">접기⌃</button></div><div class="miniGrid" id="students"></div></div><div class="actions"><button class="action" id="openAdmin">⚙ 코치/학생 관리</button></div><div class="linkSection"><h3>🔗 관련 사이트</h3><div class="linkGrid"><a class="linkCard" href="https://calm-hoxy.vercel.app/" target="_blank" rel="noopener"><b>Calm-Hoxy</b><span>펀딩 페이지</span></a><a class="linkCard" href="https://eloboard.com/" target="_blank" rel="noopener"><b>ELO보드</b><span>전적 / ELO</span></a><a class="linkCard" href="https://machugi.io/quiz/GJQTMpLt4usVzZyeGMJO" target="_blank" rel="noopener"><b>모의고사</b><span>퀴즈 컨텐츠</span></a><a class="linkCard" href="https://monstarz-schedule.vercel.app/" target="_blank" rel="noopener"><b>일정관리</b><span>일정 관리</span></a></div></div></section>
+  <section class="panel active" id="board"><div class="section"><div class="sectionHead"><h2>감독</h2><span id="directorCnt">0명</span></div><div class="directors" id="directors"></div></div><div class="section"><div class="sectionHead"><h2>코치</h2><button class="collapse" data-fold="coaches">접기⌃</button></div><div class="miniGrid" id="coaches"></div></div><div class="section"><div class="sectionHead"><h2>학생</h2><button class="collapse" data-fold="students">접기⌃</button></div><div class="miniGrid" id="students"></div></div><div class="actions"><button class="action" id="openAdmin">⚙ 코치/학생 관리</button></div><div class="linkSection"><h3>🔗 관련 사이트</h3><div class="linkGrid"><a class="linkCard" href="https://calm-hoxy.vercel.app/" target="_blank" rel="noopener"><b>Calm-Hoxy</b><span>펀딩 페이지</span></a><a class="linkCard" href="https://eloboard.com/" target="_blank" rel="noopener"><b>ELO보드</b><span>전적 / ELO</span></a><a class="linkCard" href="https://machugi.io/quiz/GJQTMpLt4usVzZyeGMJO" target="_blank" rel="noopener"><b>마추기</b><span>퀴즈 컨텐츠</span></a><a class="linkCard" href="https://monstarz-schedule.vercel.app/" target="_blank" rel="noopener"><b>일정관리</b><span>일정 관리</span></a></div></div></section>
   <section class="panel" id="notice"><div class="section"><div class="sectionHead"><h2>공지</h2><span id="noticeCnt">0개</span></div><div class="noticeList" id="noticeList"></div></div></section>
   <section class="panel" id="inout"><div class="section"><div class="sectionHead"><h2>츠캄몬스타즈 IN&OUT</h2><span id="ioCnt">0건</span></div><div class="tabs" style="margin:0"><button class="tab active" data-io="all">전체</button><button class="tab" data-io="IN">IN</button><button class="tab" data-io="OUT">OUT</button></div><div class="ioSearch"><input id="ioSearch" placeholder="IN&OUT 이름 검색"></div><div class="ioList" id="ioList"></div></div></section>
   <section class="panel" id="youtube"><div class="videoList" id="videoList"></div></section>
@@ -278,7 +304,7 @@ function miniCard(m){const idx=members.indexOf(m), live=isLive(m);return `<butto
 
 
 function bindMemberClicks(){$$('[data-member]').forEach(el=>el.addEventListener('click',e=>{if(e.target.closest('a')) return; openDetail(Number(el.dataset.member));}));}
-function openDetail(idx){currentMemberIndex=idx; const m=members[idx]; if(!m) return; const live=isLive(m); $('#detailBody').innerHTML=`<div class="profileHero"><img src="${memberImg(m)}" alt="${escapeHtml(m.name)}"><div><h2>${escapeHtml(m.name)}</h2><p>${roleName(m)} · ${escapeHtml(m.race)} · ${specialRole(m)}</p><p>${live?'🔴 방송중':'⚫ 오프라인'}</p></div></div><div class="detailBtns">${buttons(m)}</div><div class="infoBox"><div class="infoRow"><span>입단일</span><b>${shortDate(joinDate(m))} (${dday(joinDate(m))})</b></div><div class="infoRow"><span>SOOP ID</span><b>${escapeHtml(m.userId||'-')}</b></div><div class="infoRow"><span>티어/포지션</span><b>${specialRole(m)}</b></div><div class="infoRow"><span>이달전적</span><b>${escapeHtml(monthlyRecordText(m))}</b></div>${hasUrl(live?m.live:m.stream)?`<a class="infoRow link" href="${safeUrl(live?m.live:m.stream)}" target="_blank" rel="noopener"><span>방송 링크</span><b>${safeUrl(live?m.live:m.stream)}</b></a>`:`<div class="infoRow"><span>방송 링크</span><b>-</b></div>`}</div>`; $('#modal').classList.add('show');}
+function openDetail(idx){currentMemberIndex=idx; const m=members[idx]; if(!m) return; const live=isLive(m); $('#detailBody').innerHTML=`<div class="profileHero"><img src="${memberImg(m)}" alt="${escapeHtml(m.name)}"><div><h2>${escapeHtml(m.name)}</h2><p>${roleName(m)} · ${escapeHtml(m.race)} · ${specialRole(m)}</p><p>${live?'🔴 방송중':'⚫ 오프라인'}</p></div></div><div class="detailBtns">${buttons(m)}</div><div class="infoBox"><div class="infoRow"><span>입단일</span><b>${shortDate(joinDate(m))} (${dday(joinDate(m))})</b></div><div class="infoRow"><span>SOOP ID</span><b>${escapeHtml(m.userId||'-')}</b></div><div class="infoRow"><span>티어/포지션</span><b>${specialRole(m)}</b></div><div class="infoRow"><span>이달전적</span><b>${escapeHtml(monthlyRecordText(m))}</b></div>${hasUrl(live?m.live:m.stream)?`<a class="infoRow link" href="${safeUrl(live?m.live:m.stream)}" target="_blank" rel="noopener"><span>방송 링크</span><b>${safeUrl(live?m.live:m.stream)}</b></a>`:`<div class="infoRow"><span>방송 링크</span><b>-</b></div>`}</div>`; $('#modal').classList.add('show'); const detailEl=$('#modal .detail'); if(detailEl) detailEl.scrollTop=0;}
 function renderInout(){let list=inoutHistory; const q=ioSearchText.trim().toLowerCase(); if(ioFilter!=='all') list=list.map(row=>({...row,events:row.events.filter(e=>e.status===ioFilter)})).filter(row=>row.events.length); if(q) list=list.map(row=>({...row,events:row.events.filter(e=>String(e.name||'').toLowerCase().includes(q))})).filter(row=>row.events.length); $('#ioCnt').textContent=`${list.length}건`; $('#ioList').innerHTML=list.slice().reverse().map(row=>`<article class="io"><div class="ioDate">${row.date}</div><div class="ioEvents">${row.events.map(e=>`<span class="ioPerson">${escapeHtml(e.name)} <small>${e.race}</small> <i class="tag ${e.status}">${e.status}</i></span>`).join('')}</div></article>`).join('')||empty('IN&OUT 데이터가 없습니다.');}
 async function fetchNotices(){try{const data=await safeFetchJson(NOTICE_JSON_URL,{ttl:60000}); noticeItems=Array.isArray(data)?data:(data.items||data.notices||[]);}catch(e){noticeItems=NOTICE_FALLBACK;} renderNotices();}
 function noticeUrl(n){return safeUrl(n.url||n.link||n.href||n.boardUrl||n.postUrl||n.noticeUrl||n.stationUrl||'');}
