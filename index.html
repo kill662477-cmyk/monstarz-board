@@ -80,16 +80,6 @@ body{transition:background .25s ease,color .25s ease}
 
 
 
-/* ===== mobile modal viewport-center optimization ===== */
-@media(max-width:520px){
-  .modal{
-    position:fixed;
-    inset:0;
-    padding:12px;
-    overflow:hidden;
-    align-items:center;
-    justify-content:center;
-  }
   .modal.show{
     display:flex;
   }
@@ -102,6 +92,25 @@ body{transition:background .25s ease,color .25s ease}
     border-radius:22px;
     -webkit-overflow-scrolling:touch;
   }
+}
+
+
+/* ===== modal center (global - wagou fix) ===== */
+.modal.show{
+  display:flex !important;
+  align-items:center;
+  justify-content:center;
+}
+.modal{
+  position:fixed;
+  inset:0;
+}
+.modal .detail,
+.modal .adminBox{
+  width:min(100%, 560px);
+  max-height:86vh;
+  overflow:auto;
+  margin:0;
 }
 
 </style>
