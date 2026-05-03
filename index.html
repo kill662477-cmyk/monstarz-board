@@ -554,6 +554,17 @@ async function fetchYoutube(){
 
   renderYoutube();
 }
+function renderYoutube(){
+  $('#videoList').innerHTML = youtubeItems.slice(0,24).map(v => `
+    <a class="video" href="${safeUrl(v.url)}" target="_blank" rel="noopener">
+      <img class="thumb" src="${v.thumbnail}" alt="">
+      <div>
+        <h3>${escapeHtml(v.title || '영상')}</h3>
+        <p>${escapeHtml(v.sourceName || '팬튜브')} · ${escapeHtml(v.publishedText || '')}</p>
+      </div>
+    </a>
+  `).join('') || empty('유튜브 데이터를 불러오지 못했습니다.');
+}
 function findAnalysis(m){
   return analysisItems.find(a =>
     (a.userId && m.userId && String(a.userId) === String(m.userId)) ||
