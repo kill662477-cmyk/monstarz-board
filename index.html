@@ -483,88 +483,9 @@ function renderNotices(){
   }).join('')||empty('공지 데이터가 없습니다.');
 }
 function getVideoId(url){return String(url||'').match(/(?:v=|youtu\.be\/|embed\/)([\w-]{6,})/)?.[1]||'';}
+async function fetchYoutube(){try{const [a,b]=await Promise.allSettled([safeFetchJson(YOUTUBE_JSON_URL,{ttl:120000}),safeFetchJson(KAMRINI_JSON_URL,{ttl:120000})]); const ai=a.status==='fulfilled'?(a.value.items||a.value||[]):[]; const bi=b.status==='fulfilled'?(b.value.items||b.value||[]):[]; function label(v){const raw=String(v.name||v.sourceName||v.channelTitle||'').toLowerCase(); if(raw.includes('kinkon')||raw.includes('팬튜브 1')||raw.includes('팬튜브1')||raw.includes('팬유튜브1')||raw.includes('팬유튜브 1')) return 'KINKON'; if(raw.includes('팬튜브 2')||raw.includes('팬튜브2')||raw.includes('팬유튜브2')||raw.includes('팬유튜브 2')||raw.includes('츠캄팬튜브')) return '츠캄팬튜브 TsuCalm Fantube'; if(raw.includes('캄린')||raw.includes('kamrini')) return '캄린이'; return v.name||v.sourceName||v.channelTitle||'팬튜브';} youtubeItems=[...ai,...bi].map(v=>{const url=v.url||v.link||(v.videoId?`https://www.youtube.com/watch?v=${v.videoId}`:''); const id=v.videoId||getVideoId(url); const date=v.publishedAt||v.updatedAt||v.pubDate||v.date||''; return {...v,url,videoId:id,thumbnail:v.thumbnail||(id?`https://i.ytimg.com/vi/${id}/hqdefault.jpg`:''),sourceName:label(v),sortDate:date};}).filter(v=>v.videoId); const seen=new Set(); youtubeItems=youtubeItems.filter(v=>seen.has(v.videoId)?false:(seen.add(v.videoId),true)).sort((x,y)=>new Date(y.sortDate||0)-new Date(x.sortDate||0));}catch(e){youtubeItems=[];} renderYoutube();}
+function renderYoutube(){$('#videoList').innerHTML=youtubeItems.slice(0,24).map(v=>`<a class="video" href="${safeUrl(v.url)}" target="_blank" rel="noopener"><img class="thumb" src="${v.thumbnail}" alt=""><div><h3>${escapeHtml(v.title||'영상')}</h3><p>${escapeHtml(v.sourceName)} · ${escapeHtml(v.publishedText||v.viewCountText||v.publishedAt||'')}</p></div></a>`).join('')||empty('유튜브 데이터를 불러오지 못했습니다.');}
 
-async function fetchYoutube(){
-  const videoList = $('#videoList');
-  videoList.innerHTML = empty('유튜브 데이터를 불러오는 중입니다.');
-
-  try{
-    const urls = [
-      YOUTUBE_JSON_URL + '?v=' + Math.floor(Date.now() / 60000),
-      KAMRINI_JSON_URL + '?v=' + Math.floor(Date.now() / 60000)
-    ];
-
-    const results = await Promise.allSettled(
-      urls.map(url =>
-        fetch(url, { cache: 'no-store' }).then(async r => {
-          if(!r.ok) throw new Error(`${r.status} ${r.statusText}`);
-          return await r.json();
-        })
-      )
-    );
-
-    const a = results[0].status === 'fulfilled' ? results[0].value : null;
-    const b = results[1].status === 'fulfilled' ? results[1].value : null;
-
-    const ai = a ? (Array.isArray(a) ? a : (a.items || [])) : [];
-    const bi = b ? (Array.isArray(b) ? b : (b.items || [])) : [];
-
-    console.log('YOUTUBE_JSON raw:', a);
-    console.log('KAMRINI_JSON raw:', b);
-    console.log('youtube ai:', ai.length, 'bi:', bi.length);
-
-    function label(v){
-      const raw = String(v.name || v.sourceName || v.channelTitle || '').toLowerCase();
-
-      if(raw.includes('팬튜브1') || raw.includes('kinkon')) return 'KINKON';
-      if(raw.includes('팬튜브2') || raw.includes('tsucalm')) return '츠캄팬튜브';
-      if(raw.includes('캄린') || raw.includes('kamrini')) return '캄린이';
-
-      return v.name || v.sourceName || v.channelTitle || '팬튜브';
-    }
-
-    youtubeItems = [...ai, ...bi]
-      .map(v => {
-        const url = v.url || v.link || (v.videoId ? `https://www.youtube.com/watch?v=${v.videoId}` : '');
-        const id = v.videoId || getVideoId(url);
-
-        return {
-          ...v,
-          url,
-          videoId: id,
-          thumbnail: v.thumbnail || (id ? `https://i.ytimg.com/vi/${id}/hqdefault.jpg` : ''),
-          sourceName: label(v),
-          sortDate: v.publishedAt || v.updatedAt || v.pubDate || v.date || '',
-          publishedText: v.publishedText || v.viewCountText || v.publishedAt || ''
-        };
-      })
-      .filter(v => v.videoId);
-
-    const seen = new Set();
-    youtubeItems = youtubeItems
-      .filter(v => seen.has(v.videoId) ? false : (seen.add(v.videoId), true))
-      .slice(0, 24);
-
-    console.log('youtubeItems final:', youtubeItems.length, youtubeItems[0]);
-
-  }catch(e){
-    console.error('youtube fetch failed:', e);
-    youtubeItems = [];
-  }
-
-  renderYoutube();
-}
-function renderYoutube(){
-  $('#videoList').innerHTML = youtubeItems.slice(0,24).map(v => `
-    <a class="video" href="${safeUrl(v.url)}" target="_blank" rel="noopener">
-      <img class="thumb" src="${v.thumbnail}" alt="">
-      <div>
-        <h3>${escapeHtml(v.title || '영상')}</h3>
-        <p>${escapeHtml(v.sourceName || '팬튜브')} · ${escapeHtml(v.publishedText || '')}</p>
-      </div>
-    </a>
-  `).join('') || empty('유튜브 데이터를 불러오지 못했습니다.');
-}
 function findAnalysis(m){
   return analysisItems.find(a =>
     (a.userId && m.userId && String(a.userId) === String(m.userId)) ||
