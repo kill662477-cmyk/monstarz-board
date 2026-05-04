@@ -1,5 +1,787 @@
 {
-  "members": [],
-  "inoutHistory": [],
-  "updatedAt": ""
+  "members": [
+    {
+      "name": "김윤환",
+      "userId": "brainzerg7",
+      "type": "leader",
+      "role": "감독",
+      "tier": null,
+      "race": "Zerg",
+      "status": "offline",
+      "profileImage": "https://stimg.sooplive.com/LOGO/br/brainzerg7/m/brainzerg7.webp",
+      "stream": "https://www.sooplive.com/station/brainzerg7",
+      "live": "https://play.sooplive.com/brainzerg7",
+      "youtube": "http://www.youtube.com/@calmtube2",
+      "profile": "#"
+    },
+    {
+      "name": "박준오",
+      "userId": "h78ert",
+      "type": "coach",
+      "role": "코치",
+      "tier": null,
+      "race": "Zerg",
+      "status": "offline",
+      "profileImage": "https://stimg.sooplive.com/LOGO/h7/h78ert/m/h78ert.webp",
+      "stream": "https://www.sooplive.com/station/h78ert",
+      "live": "https://play.sooplive.com/h78ert",
+      "youtube": "#",
+      "profile": "#"
+    },
+    {
+      "name": "박수범",
+      "userId": "jihoon002",
+      "type": "coach",
+      "role": "코치",
+      "tier": null,
+      "race": "Protoss",
+      "status": "offline",
+      "profileImage": "https://stimg.sooplive.com/LOGO/ji/jihoon002/m/jihoon002.webp",
+      "stream": "https://www.sooplive.com/station/jihoon002",
+      "live": "https://play.sooplive.com/jihoon002",
+      "youtube": "#",
+      "profile": "#"
+    },
+    {
+      "name": "사테",
+      "userId": "hoonykkk",
+      "type": "coach",
+      "role": "코치",
+      "tier": null,
+      "race": "Terran",
+      "status": "offline",
+      "profileImage": "https://stimg.sooplive.com/LOGO/ho/hoonykkk/m/hoonykkk.webp",
+      "stream": "https://www.sooplive.com/station/hoonykkk",
+      "live": "https://play.sooplive.com/hoonykkk",
+      "youtube": "#",
+      "profile": "#"
+    },
+    {
+      "name": "지동원",
+      "userId": "rondobba",
+      "type": "coach",
+      "role": "코치",
+      "tier": null,
+      "race": "Terran",
+      "status": "offline",
+      "profileImage": "https://stimg.sooplive.com/LOGO/ro/rondobba/m/rondobba.webp",
+      "stream": "https://www.sooplive.com/station/rondobba",
+      "live": "https://play.sooplive.com/rondobba",
+      "youtube": "#",
+      "profile": "#"
+    },
+    {
+      "name": "배성흠",
+      "userId": "goodzerg",
+      "type": "coach",
+      "role": "코치",
+      "tier": null,
+      "race": "Zerg",
+      "status": "offline",
+      "profileImage": "https://stimg.sooplive.com/LOGO/go/goodzerg/m/goodzerg.webp",
+      "stream": "https://www.sooplive.com/station/goodzerg",
+      "live": "https://play.sooplive.com/goodzerg",
+      "youtube": "#",
+      "profile": "#"
+    },
+    {
+      "name": "파도튜브",
+      "userId": "kthrs9207",
+      "type": "coach",
+      "role": "코치",
+      "tier": null,
+      "race": "Protoss",
+      "status": "offline",
+      "profileImage": "https://stimg.sooplive.com/LOGO/kt/kthrs9207/m/kthrs9207.webp",
+      "stream": "https://www.sooplive.com/station/kthrs9207",
+      "live": "https://play.sooplive.com/kthrs9207",
+      "youtube": "http://www.youtube.com/@padotube9207",
+      "profile": "#"
+    },
+    {
+      "name": "토마토",
+      "userId": "freshtomato",
+      "type": "player",
+      "role": "학생",
+      "tier": 3,
+      "race": "Protoss",
+      "status": "offline",
+      "profileImage": "https://stimg.sooplive.com/LOGO/fr/freshtomato/m/freshtomato.webp",
+      "stream": "https://www.sooplive.com/station/freshtomato",
+      "live": "https://play.sooplive.com/freshtomato",
+      "youtube": "https://www.youtube.com/channel/UCoBw6khRoeei_tgSBueVUXw",
+      "profile": "#"
+    },
+    {
+      "name": "지두두",
+      "userId": "wjswlgns09",
+      "type": "player",
+      "role": "학생",
+      "tier": 3,
+      "race": "Terran",
+      "status": "offline",
+      "profileImage": "https://stimg.sooplive.com/LOGO/wj/wjswlgns09/m/wjswlgns09.webp",
+      "stream": "https://www.sooplive.com/station/wjswlgns09",
+      "live": "https://play.sooplive.com/wjswlgns09",
+      "youtube": "#",
+      "profile": "#"
+    },
+    {
+      "name": "햇살",
+      "userId": "thelddl",
+      "type": "player",
+      "role": "학생",
+      "tier": 4,
+      "race": "Terran",
+      "status": "offline",
+      "profileImage": "https://stimg.sooplive.com/LOGO/th/thelddl/m/thelddl.webp",
+      "stream": "https://www.sooplive.com/station/thelddl",
+      "live": "https://play.sooplive.com/thelddl",
+      "youtube": "#",
+      "profile": "#"
+    },
+    {
+      "name": "찌킹",
+      "userId": "alaelddl97",
+      "type": "player",
+      "role": "학생",
+      "tier": 4,
+      "race": "Zerg",
+      "status": "offline",
+      "profileImage": "https://stimg.sooplive.com/LOGO/al/alaelddl97/m/alaelddl97.webp",
+      "stream": "https://www.sooplive.com/station/alaelddl97",
+      "live": "https://play.sooplive.com/alaelddl97",
+      "youtube": "#",
+      "profile": "#"
+    },
+    {
+      "name": "치리",
+      "userId": "db001202",
+      "type": "player",
+      "role": "학생",
+      "tier": 5,
+      "race": "Zerg",
+      "status": "offline",
+      "profileImage": "https://stimg.sooplive.com/LOGO/db/db001202/m/db001202.webp",
+      "stream": "https://www.sooplive.com/station/db001202",
+      "live": "https://play.sooplive.com/db001202",
+      "youtube": "#",
+      "profile": "#"
+    },
+    {
+      "name": "주하랑",
+      "userId": "fpahsdltu1",
+      "type": "player",
+      "role": "학생",
+      "tier": 5,
+      "race": "Protoss",
+      "status": "offline",
+      "profileImage": "https://stimg.sooplive.com/LOGO/fp/fpahsdltu1/m/fpahsdltu1.webp",
+      "stream": "https://www.sooplive.com/station/fpahsdltu1",
+      "live": "https://play.sooplive.com/fpahsdltu1",
+      "youtube": "#",
+      "profile": "#"
+    },
+    {
+      "name": "소주양",
+      "userId": "soju2022",
+      "type": "player",
+      "role": "학생",
+      "tier": 5,
+      "race": "Terran",
+      "status": "offline",
+      "profileImage": "https://stimg.sooplive.com/LOGO/so/soju2022/m/soju2022.webp",
+      "stream": "https://www.sooplive.com/station/soju2022",
+      "live": "https://play.sooplive.com/soju2022",
+      "youtube": "#",
+      "profile": "#"
+    },
+    {
+      "name": "임조이",
+      "userId": "dlaguswl501",
+      "type": "player",
+      "role": "학생",
+      "tier": 6,
+      "race": "Zerg",
+      "status": "offline",
+      "profileImage": "https://stimg.sooplive.com/LOGO/dl/dlaguswl501/m/dlaguswl501.webp",
+      "stream": "https://www.sooplive.com/station/dlaguswl501",
+      "live": "https://play.sooplive.com/dlaguswl501",
+      "youtube": "#",
+      "profile": "#"
+    },
+    {
+      "name": "비타밍",
+      "userId": "seemin88",
+      "type": "player",
+      "role": "학생",
+      "tier": 6,
+      "race": "Terran",
+      "status": "offline",
+      "profileImage": "https://stimg.sooplive.com/LOGO/se/seemin88/m/seemin88.webp",
+      "stream": "https://www.sooplive.com/station/seemin88",
+      "live": "https://play.sooplive.com/seemin88",
+      "youtube": "#",
+      "profile": "#"
+    },
+    {
+      "name": "먼진",
+      "userId": "2meonjin",
+      "type": "player",
+      "role": "학생",
+      "tier": 7,
+      "race": "Zerg",
+      "status": "offline",
+      "profileImage": "https://stimg.sooplive.com/LOGO/2m/2meonjin/m/2meonjin.webp",
+      "stream": "https://www.sooplive.com/station/2meonjin",
+      "live": "https://play.sooplive.com/2meonjin",
+      "youtube": "#",
+      "profile": "#"
+    },
+    {
+      "name": "아리송이",
+      "userId": "vldpfm2",
+      "type": "player",
+      "role": "학생",
+      "tier": 7,
+      "race": "Protoss",
+      "status": "offline",
+      "profileImage": "https://stimg.sooplive.com/LOGO/vl/vldpfm2/vldpfm2.jpg",
+      "stream": "https://www.sooplive.com/station/vldpfm2",
+      "live": "https://play.sooplive.com/vldpfm2",
+      "youtube": "#",
+      "profile": "#"
+    },
+    {
+      "name": "진땅콩",
+      "userId": "wlswn6565",
+      "type": "player",
+      "role": "학생",
+      "tier": 8,
+      "race": "Protoss",
+      "status": "offline",
+      "profileImage": "https://stimg.sooplive.com/LOGO/wl/wlswn6565/m/wlswn6565.webp",
+      "stream": "https://www.sooplive.com/station/wlswn6565",
+      "live": "https://play.sooplive.com/wlswn6565",
+      "youtube": "#",
+      "profile": "#"
+    },
+    {
+      "name": "낭니",
+      "userId": "sksmsskdsl10",
+      "type": "player",
+      "role": "학생",
+      "tier": 9,
+      "race": "Zerg",
+      "status": "offline",
+      "profileImage": "https://stimg.sooplive.com/LOGO/sk/sksmsskdsl10/m/sksmsskdsl10.webp",
+      "stream": "https://www.sooplive.com/station/sksmsskdsl10",
+      "live": "https://play.sooplive.com/sksmsskdsl10",
+      "youtube": "#",
+      "profile": "#"
+    }
+  ],
+  "inoutHistory": [
+    {
+      "date": "24.07.08",
+      "events": [
+        {
+          "name": "김윤환",
+          "race": "Z",
+          "status": "IN"
+        },
+        {
+          "name": "이경민",
+          "race": "P",
+          "status": "IN"
+        }
+      ]
+    },
+    {
+      "date": "24.07.09",
+      "events": [
+        {
+          "name": "졈니",
+          "race": "P",
+          "status": "IN"
+        },
+        {
+          "name": "디임",
+          "race": "P",
+          "status": "IN"
+        }
+      ]
+    },
+    {
+      "date": "24.07.12",
+      "events": [
+        {
+          "name": "앵지",
+          "race": "Z",
+          "status": "IN"
+        }
+      ]
+    },
+    {
+      "date": "24.07.17",
+      "events": [
+        {
+          "name": "토마토",
+          "race": "P",
+          "status": "IN"
+        },
+        {
+          "name": "임조이",
+          "race": "Z",
+          "status": "IN"
+        }
+      ]
+    },
+    {
+      "date": "24.07.20",
+      "events": [
+        {
+          "name": "킹지",
+          "race": "P",
+          "status": "IN"
+        },
+        {
+          "name": "킹지",
+          "race": "P",
+          "status": "OUT"
+        }
+      ]
+    },
+    {
+      "date": "24.08.07",
+      "events": [
+        {
+          "name": "효짱",
+          "race": "P",
+          "status": "IN"
+        },
+        {
+          "name": "한쪼니",
+          "race": "P",
+          "status": "IN"
+        }
+      ]
+    },
+    {
+      "date": "24.08.17",
+      "events": [
+        {
+          "name": "모리",
+          "race": "T",
+          "status": "IN"
+        },
+        {
+          "name": "몽군",
+          "race": "T",
+          "status": "IN"
+        }
+      ]
+    },
+    {
+      "date": "24.08.19",
+      "events": [
+        {
+          "name": "치리",
+          "race": "Z",
+          "status": "IN"
+        }
+      ]
+    },
+    {
+      "date": "24.09.01",
+      "events": [
+        {
+          "name": "강덕구",
+          "race": "T",
+          "status": "IN"
+        }
+      ]
+    },
+    {
+      "date": "24.09.25",
+      "events": [
+        {
+          "name": "강덕구",
+          "race": "T",
+          "status": "OUT"
+        }
+      ]
+    },
+    {
+      "date": "24.09.30",
+      "events": [
+        {
+          "name": "수입뿌드",
+          "race": "P",
+          "status": "IN"
+        }
+      ]
+    },
+    {
+      "date": "24.10.18",
+      "events": [
+        {
+          "name": "박준오",
+          "race": "Z",
+          "status": "IN"
+        }
+      ]
+    },
+    {
+      "date": "24.10.31",
+      "events": [
+        {
+          "name": "정윤종",
+          "race": "P",
+          "status": "IN"
+        }
+      ]
+    },
+    {
+      "date": "24.11.02",
+      "events": [
+        {
+          "name": "세나",
+          "race": "Z",
+          "status": "IN"
+        }
+      ]
+    },
+    {
+      "date": "25.01.08",
+      "events": [
+        {
+          "name": "디임",
+          "race": "P",
+          "status": "OUT"
+        }
+      ]
+    },
+    {
+      "date": "25.02.28",
+      "events": [
+        {
+          "name": "다예",
+          "race": "Z",
+          "status": "IN"
+        }
+      ]
+    },
+    {
+      "date": "25.03.06",
+      "events": [
+        {
+          "name": "막내현진",
+          "race": "P",
+          "status": "IN"
+        },
+        {
+          "name": "송혜림",
+          "race": "T",
+          "status": "IN"
+        },
+        {
+          "name": "진땅콩",
+          "race": "T",
+          "status": "IN"
+        }
+      ]
+    },
+    {
+      "date": "25.03.07",
+      "events": [
+        {
+          "name": "진땅콩",
+          "race": "T",
+          "status": "OUT"
+        }
+      ]
+    },
+    {
+      "date": "25.06.12",
+      "events": [
+        {
+          "name": "송혜림",
+          "race": "T",
+          "status": "OUT"
+        }
+      ]
+    },
+    {
+      "date": "25.07.14",
+      "events": [
+        {
+          "name": "세나",
+          "race": "Z",
+          "status": "OUT"
+        },
+        {
+          "name": "앵지",
+          "race": "Z",
+          "status": "OUT"
+        },
+        {
+          "name": "졈니",
+          "race": "P",
+          "status": "OUT"
+        },
+        {
+          "name": "몽군",
+          "race": "T",
+          "status": "OUT"
+        },
+        {
+          "name": "효짱",
+          "race": "P",
+          "status": "OUT"
+        },
+        {
+          "name": "한쪼니",
+          "race": "P",
+          "status": "OUT"
+        }
+      ]
+    },
+    {
+      "date": "25.07.26",
+      "events": [
+        {
+          "name": "황병영",
+          "race": "T",
+          "status": "IN"
+        },
+        {
+          "name": "지동원",
+          "race": "T",
+          "status": "IN"
+        }
+      ]
+    },
+    {
+      "date": "25.07.27",
+      "events": [
+        {
+          "name": "진땅콩",
+          "race": "P",
+          "status": "IN"
+        }
+      ]
+    },
+    {
+      "date": "25.08.04",
+      "events": [
+        {
+          "name": "두디",
+          "race": "Z",
+          "status": "IN"
+        },
+        {
+          "name": "조일장",
+          "race": "Z",
+          "status": "IN"
+        }
+      ]
+    },
+    {
+      "date": "25.08.05",
+      "events": [
+        {
+          "name": "주하랑",
+          "race": "P",
+          "status": "IN"
+        }
+      ]
+    },
+    {
+      "date": "25.08.07",
+      "events": [
+        {
+          "name": "햇살",
+          "race": "T",
+          "status": "IN"
+        }
+      ]
+    },
+    {
+      "date": "25.09.24",
+      "events": [
+        {
+          "name": "소주양",
+          "race": "T",
+          "status": "IN"
+        }
+      ]
+    },
+    {
+      "date": "25.10.30",
+      "events": [
+        {
+          "name": "두디",
+          "race": "Z",
+          "status": "OUT"
+        },
+        {
+          "name": "모리",
+          "race": "T",
+          "status": "OUT"
+        },
+        {
+          "name": "막내현진",
+          "race": "P",
+          "status": "OUT"
+        }
+      ]
+    },
+    {
+      "date": "25.11.03",
+      "events": [
+        {
+          "name": "파도튜브",
+          "race": "P",
+          "status": "IN"
+        }
+      ]
+    },
+    {
+      "date": "25.12.05",
+      "events": [
+        {
+          "name": "박쭈이",
+          "race": "Z",
+          "status": "IN"
+        }
+      ]
+    },
+    {
+      "date": "26.01.14",
+      "events": [
+        {
+          "name": "정윤종",
+          "race": "P",
+          "status": "OUT"
+        }
+      ]
+    },
+    {
+      "date": "26.01.17",
+      "events": [
+        {
+          "name": "박수범",
+          "race": "P",
+          "status": "IN"
+        },
+        {
+          "name": "배성흠",
+          "race": "Z",
+          "status": "IN"
+        },
+        {
+          "name": "먼진",
+          "race": "Z",
+          "status": "IN"
+        },
+        {
+          "name": "다예",
+          "race": "Z",
+          "status": "OUT"
+        }
+      ]
+    },
+    {
+      "date": "26.03.14",
+      "events": [
+        {
+          "name": "조일장",
+          "race": "Z",
+          "status": "OUT"
+        },
+        {
+          "name": "황병영",
+          "race": "T",
+          "status": "OUT"
+        },
+        {
+          "name": "수뿌",
+          "race": "P",
+          "status": "OUT"
+        }
+      ]
+    },
+    {
+      "date": "26.03.16",
+      "events": [
+        {
+          "name": "비타밍",
+          "race": "T",
+          "status": "IN"
+        }
+      ]
+    },
+    {
+      "date": "26.03.19",
+      "events": [
+        {
+          "name": "지두두",
+          "race": "T",
+          "status": "IN"
+        },
+        {
+          "name": "아리송이",
+          "race": "P",
+          "status": "IN"
+        }
+      ]
+    },
+    {
+      "date": "26.03.21",
+      "events": [
+        {
+          "name": "박쭈이",
+          "race": "Z",
+          "status": "OUT"
+        }
+      ]
+    },
+    {
+      "date": "26.03.26",
+      "events": [
+        {
+          "name": "사테",
+          "race": "T",
+          "status": "IN"
+        },
+        {
+          "name": "찌킹",
+          "race": "Z",
+          "status": "IN"
+        }
+      ]
+    },
+    {
+      "date": "26.04.28",
+      "events": [
+        {
+          "name": "낭니",
+          "race": "Z",
+          "status": "IN"
+        }
+      ]
+    },
+    {
+      "date": "26.05.04",
+      "events": [
+        {
+          "name": "이경민",
+          "race": "P",
+          "status": "OUT"
+        }
+      ]
+    }
+  ],
+  "updatedAt": "2026-05-04T12:56:49.833Z"
 }
