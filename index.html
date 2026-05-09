@@ -467,7 +467,7 @@ function hasUrl(v){return !!(v && v !== '#');}
 function buttons(m){const arr=[]; const station=m.stream||m.station||m.live; if(hasUrl(station)) arr.push(`<a class="go" href="${safeUrl(station)}" target="_blank" rel="noopener">📺 방송국</a>`); if(hasUrl(m.youtube)) arr.push(`<a class="go yt" href="${safeUrl(m.youtube)}" target="_blank" rel="noopener">▶ 유튜브</a>`); if(hasUrl(m.profile)) arr.push(`<a class="go full" href="${safeUrl(m.profile)}" target="_blank" rel="noopener">풀튜브</a>`); return arr.length?`<div class="btns">${arr.join('')}</div>`:'';}
 function passFilter(m){const q=$('#q').value.trim().toLowerCase(); const rf=$('#roleFilter').value; if(rf==='live'&&!isLive(m)) return false; if(rf!=='all'&&rf!=='live'&&m.type!==rf) return false; if(!q) return true; return [m.name,m.role,roleName(m),m.race,specialRole(m),m.userId].join(' ').toLowerCase().includes(q);}
 function render(){$('#teamName').textContent=TEAM.name; $('#teamLogo').src=TEAM.logo; const filtered=members.filter(passFilter); const directors=filtered.filter(m=>m.type==='leader'); const tierOrder = {
-  GOD: 0,
+  God: 0,
   King: 1,
   Jack: 2,
   Spade: 3
